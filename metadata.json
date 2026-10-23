@@ -1,0 +1,8 @@
+{
+  "name": "How to Get Jobs - Career & Employability Platform",
+  "description": "Empowering graduates and professionals to land dream careers through free tactical webinars, premium masterclasses, and employability tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

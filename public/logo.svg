@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 110" fill="none">
+  <!-- Monogram Symbol -->
+  <g fill="#006C6D">
+    <!-- Left vertical pillar with inward-beveled top -->
+    <path d="M12 28 L34 18 V96 H12 V28 Z" />
+    <!-- Right vertical pillar with inward-beveled top -->
+    <path d="M78 18 L100 28 V96 H78 V18 Z" />
+    <!-- Peaked roof / bridge joining the two pillars -->
+    <path d="M30 46 L56 26 L82 46 L74 55 L56 41 L38 55 Z" />
+    <!-- Ascending pathway / road transforming into an upward arrow -->
+    <path d="M6 94 C30 94 44 78 50 58 L40 56 L56 34 L72 56 L62 58 C58 78 46 98 6 98 Z" />
+  </g>
+
+  <!-- Typography -->
+  <!-- "How to" - geometric sans medium -->
+  <text x="116" y="48" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="34" font-weight="500" fill="#006C6D" letter-spacing="-0.5">How to</text>
+  <!-- "Get Jobs" - geometric sans heavy bold -->
+  <text x="116" y="92" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="44" font-weight="800" fill="#006C6D" letter-spacing="-1">Get Jobs</text>
+</svg>

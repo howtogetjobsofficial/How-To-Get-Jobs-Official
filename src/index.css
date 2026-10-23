@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand-teal: #006C6D;
+    --color-brand-teal-dark: #004D4E;
+    --color-brand-teal-light: #D3EDE9;
+    --color-brand-yellow: #F1B01C;
+    --color-brand-red: #DC2626;
+    --color-brand-dark: #0F172A;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #0F172A;
+    background-color: #F8FBFA;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Custom scrollbar using flyer teal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #E8F3F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #006C6D;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #004D4E;
+}
