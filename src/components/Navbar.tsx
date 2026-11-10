@@ -24,13 +24,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-      {/* Top Banner with Flyer Palette */}
-      <div className="bg-[#006C6D] text-white text-xs py-2 px-4">
+    <>
+      {/* Top Ticker Status Banner - Suspended cleanly above */}
+      <div className="w-full bg-[#004D4E] text-[#D3EDE9] text-xs py-2 px-4 border-b border-[#006C6D]/40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#F1B01C] animate-pulse"></span>
-            <span className="font-medium text-[#D3EDE9]">
+            <span className="font-medium text-xs">
               Next Free Live Webinar: <strong className="text-white">30 Nov, 2026 • 8:00 PM WAT</strong>
             </span>
           </div>
@@ -46,141 +46,156 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Main Nav */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo - Standalone without any words underneath */}
-          <div
-            onClick={() => handleNav('landing')}
-            className="cursor-pointer transition-opacity hover:opacity-95"
-            title="How to Get Jobs - Home"
-          >
-            <Logo variant="teal" />
-          </div>
+      {/* Floating / Suspended Navbar Island - Exact Yonbox floating capsule structure */}
+      <header className="sticky top-4 z-50 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
+        <div className="max-w-6xl mx-auto pointer-events-auto">
+          <div className="bg-white/92 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,40,40,0.14)] rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,77,78,0.2)]">
+            <div className="flex items-center justify-between gap-4">
+              {/* Standalone Logo on the left side - click leads to home */}
+              <div
+                onClick={() => handleNav('landing')}
+                className="cursor-pointer transition-transform hover:scale-102 flex items-center shrink-0"
+                title="How to Get Jobs - Home"
+              >
+                <Logo variant="teal" />
+              </div>
 
-          {/* EXACTLY TWO NAVIGATION MENUS ONLY */}
-          <nav className="hidden md:flex items-center gap-3 text-sm font-bold">
-            {/* 1. The Free Webinar Menu */}
-            <button
-              onClick={() => handleNav('webinar')}
-              className={`px-5 py-2.5 rounded-full text-sm font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
-                currentView === 'webinar'
-                  ? 'bg-[#006C6D] text-white shadow-md'
-                  : 'text-slate-800 hover:text-[#006C6D] hover:bg-[#D3EDE9]/40'
-              }`}
-            >
-              <Calendar className="w-4 h-4 text-[#F1B01C]" />
-              <span>Free Webinar</span>
-            </button>
+              {/* Center Menu: Suspended Floating Pill Segment (Yonbox-style) */}
+              <nav className="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/70">
+                <button
+                  onClick={() => handleNav('landing')}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    currentView === 'landing'
+                      ? 'bg-white text-[#006C6D] shadow-xs font-extrabold'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+                  }`}
+                >
+                  Home
+                </button>
 
-            {/* 2. The Masterclass Menu (NO price tag) */}
-            <button
-              onClick={() => handleNav('masterclass')}
-              className={`px-5 py-2.5 rounded-full text-sm font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
-                currentView === 'masterclass'
-                  ? 'bg-[#006C6D] text-white shadow-md'
-                  : 'text-slate-800 hover:text-[#006C6D] hover:bg-[#D3EDE9]/40'
-              }`}
-            >
-              <Lock className="w-4 h-4 text-[#F1B01C]" />
-              <span>Masterclass</span>
-            </button>
-          </nav>
+                {/* 1. Free Webinar Menu */}
+                <button
+                  onClick={() => handleNav('webinar')}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    currentView === 'webinar'
+                      ? 'bg-[#006C6D] text-white shadow-xs font-extrabold'
+                      : 'text-slate-700 hover:text-[#006C6D] hover:bg-white/60'
+                  }`}
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#F1B01C]" />
+                  <span>Free Webinar</span>
+                </button>
 
-          {/* Quick Registration Actions */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={onOpenWebinarModal}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-black text-[#006C6D] bg-[#D3EDE9] hover:bg-[#c2e4de] transition-colors cursor-pointer"
-            >
-              <span>Register Free</span>
-            </button>
+                {/* 2. Masterclass Menu */}
+                <button
+                  onClick={() => handleNav('masterclass')}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    currentView === 'masterclass'
+                      ? 'bg-[#006C6D] text-white shadow-xs font-extrabold'
+                      : 'text-slate-700 hover:text-[#006C6D] hover:bg-white/60'
+                  }`}
+                >
+                  <Lock className="w-3.5 h-3.5 text-[#F1B01C]" />
+                  <span>Masterclass</span>
+                </button>
+              </nav>
 
-            <button
-              onClick={onOpenMasterclassModal}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black text-slate-950 bg-[#F1B01C] hover:bg-[#d99c12] shadow-sm transition-all cursor-pointer"
-            >
-              <span>Enroll Masterclass</span>
-            </button>
-          </div>
+              {/* Right CTA Actions - Pill Buttons matching Yonbox suspended style */}
+              <div className="hidden sm:flex items-center gap-2 shrink-0">
+                <button
+                  onClick={onOpenWebinarModal}
+                  className="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-xs font-extrabold text-[#006C6D] bg-[#D3EDE9] hover:bg-[#bde2db] transition-colors cursor-pointer"
+                >
+                  <span>Free Webinar</span>
+                </button>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={onOpenWebinarModal}
-              className="px-3 py-1.5 rounded-full text-xs font-bold text-white bg-[#DC2626] cursor-pointer"
-            >
-              Free Webinar
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-slate-950"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+                <button
+                  onClick={onOpenMasterclassModal}
+                  className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-black text-slate-950 bg-[#F1B01C] hover:bg-[#df9f12] shadow-sm transition-all cursor-pointer active:scale-95"
+                >
+                  <span>Enroll Masterclass</span>
+                </button>
+              </div>
+
+              {/* Mobile Hamburger Button */}
+              <div className="md:hidden flex items-center gap-2">
+                <button
+                  onClick={onOpenWebinarModal}
+                  className="px-3 py-1.5 rounded-full text-xs font-bold text-white bg-[#006C6D] cursor-pointer"
+                >
+                  Webinar
+                </button>
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="p-1.5 rounded-full text-slate-700 hover:text-slate-950 hover:bg-slate-100"
+                  aria-label="Toggle menu"
+                >
+                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Dropdown when open */}
+            {mobileMenuOpen && (
+              <div className="md:hidden pt-4 pb-2 border-t border-slate-100 mt-3 space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
+                <button
+                  onClick={() => handleNav('landing')}
+                  className={`w-full text-left py-2 px-3 rounded-full text-xs font-bold ${
+                    currentView === 'landing' ? 'bg-[#D3EDE9] text-[#006C6D]' : 'text-slate-800'
+                  }`}
+                >
+                  Home Landing
+                </button>
+
+                <button
+                  onClick={() => handleNav('webinar')}
+                  className={`w-full text-left py-2 px-3 rounded-full text-xs font-bold flex items-center justify-between ${
+                    currentView === 'webinar' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
+                  }`}
+                >
+                  <span>Free Webinar</span>
+                  <span className="text-[10px] bg-[#DC2626] text-white px-2 py-0.5 rounded-full font-black">
+                    FREE
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => handleNav('masterclass')}
+                  className={`w-full text-left py-2 px-3 rounded-full text-xs font-bold flex items-center justify-between ${
+                    currentView === 'masterclass' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
+                  }`}
+                >
+                  <span>Masterclass</span>
+                  <span className="text-[10px] bg-[#F1B01C] text-slate-950 px-2 py-0.5 rounded-full font-black">
+                    7 LIVE
+                  </span>
+                </button>
+
+                <div className="pt-2 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenWebinarModal();
+                    }}
+                    className="w-full py-2 text-center text-xs font-black rounded-full bg-[#D3EDE9] text-[#004D4E]"
+                  >
+                    Register Free
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenMasterclassModal();
+                    }}
+                    className="w-full py-2 text-center text-xs font-black rounded-full bg-[#F1B01C] text-slate-950"
+                  >
+                    Enroll Now
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-
-      {/* Mobile Menu - Only the two menus + quick actions */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-5 space-y-3 shadow-xl">
-          <button
-            onClick={() => handleNav('landing')}
-            className={`w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold ${
-              currentView === 'landing' ? 'bg-[#D3EDE9] text-[#006C6D]' : 'text-slate-800'
-            }`}
-          >
-            Home / Landing Page
-          </button>
-
-          <button
-            onClick={() => handleNav('webinar')}
-            className={`w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold flex items-center justify-between ${
-              currentView === 'webinar' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
-            }`}
-          >
-            <span>Free Webinar</span>
-            <span className="text-xs bg-[#DC2626] text-white px-2 py-0.5 rounded font-black">
-              FREE
-            </span>
-          </button>
-
-          <button
-            onClick={() => handleNav('masterclass')}
-            className={`w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold flex items-center justify-between ${
-              currentView === 'masterclass' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
-            }`}
-          >
-            <span>Masterclass</span>
-            <span className="text-xs bg-[#F1B01C] text-slate-950 px-2 py-0.5 rounded font-black">
-              7 LIVE
-            </span>
-          </button>
-
-          <div className="pt-3 border-t border-slate-200 grid grid-cols-2 gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenWebinarModal();
-              }}
-              className="w-full py-2.5 text-center text-xs font-black rounded-full bg-[#D3EDE9] text-[#004D4E]"
-            >
-              Register Webinar
-            </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenMasterclassModal();
-              }}
-              className="w-full py-2.5 text-center text-xs font-black rounded-full bg-[#006C6D] text-white"
-            >
-              Enroll Masterclass
-            </button>
-          </div>
-        </div>
-      )}
-    </header>
+      </header>
+    </>
   );
 };

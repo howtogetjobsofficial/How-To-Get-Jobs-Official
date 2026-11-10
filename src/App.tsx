@@ -16,15 +16,18 @@ import {
   Layers, 
   ShieldCheck,
   HelpCircle,
-  Play
+  Play,
+  CreditCard,
+  ExternalLink
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Logo } from './components/Logo';
 import { WebinarFlyer } from './components/WebinarFlyer';
+import { MasterclassFlyer } from './components/MasterclassFlyer';
 import { WebinarCountdown } from './components/WebinarCountdown';
 import { RegistrationModal } from './components/RegistrationModal';
-import { MasterclassEnrollModal } from './components/MasterclassEnrollModal';
+import { MasterclassEnrollModal, PAYSTACK_PAYMENT_URL } from './components/MasterclassEnrollModal';
 
 export default function App() {
   // Navigation view: 'landing' (first view / landing page), 'webinar' (strictly free webinar), 'masterclass' (strictly masterclass)
@@ -71,8 +74,28 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FBFA] text-slate-900 selection:bg-[#F1B01C] selection:text-slate-950 font-sans">
-      {/* 1. NAVBAR - Exactly Two Navigation Menus: Free Webinar & Masterclass (No price tag) */}
+    <div className="relative min-h-screen flex flex-col bg-[#F8FBFA] text-slate-900 selection:bg-[#F1B01C] selection:text-slate-950 font-sans">
+      {/* Static / Fixed Background Picture (Parallax backdrop remaining static while scrolling to bottom for all pages) */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 overflow-hidden" 
+        aria-hidden="true"
+      >
+        {/* Crisp static photographic backdrop */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed opacity-[0.06] scale-100 filter grayscale"
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=85")`,
+          }}
+        />
+
+        {/* Brand tint wash matching webinar flyer teal palette */}
+        <div className="absolute inset-0 bg-radial from-[#D3EDE9]/40 via-transparent to-[#004D4E]/10" />
+
+        {/* Ambient watermark accent */}
+        <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#006C6D]/5 blur-3xl pointer-events-none" />
+      </div>
+
+      {/* 1. NAVBAR - Suspended floating island (Yonbox style) */}
       <Navbar
         currentView={currentView}
         onNavigate={handleNavigate}
@@ -80,20 +103,45 @@ export default function App() {
         onOpenMasterclassModal={() => setIsMasterclassModalOpen(true)}
       />
 
-      <main className="flex-1 space-y-16 sm:space-y-24 pb-20">
+      <main className="relative z-10 flex-1 space-y-16 sm:space-y-24 pb-20">
         {/* ========================================================================= */}
         {/* VIEW 1: LANDING PAGE (DEFAULT FIRST VIEW)                                */}
         {/* ========================================================================= */}
         {currentView === 'landing' && (
           <div className="space-y-16 sm:space-y-24">
-            {/* Landing Hero Section */}
-            <section className="relative overflow-hidden bg-linear-to-b from-[#006C6D] to-[#004D4E] text-white pt-16 pb-20 sm:pt-24 sm:pb-28">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Landing Hero Section with Transparent Motion / Dynamic Backdrop */}
+            <section className="relative overflow-hidden bg-[#004D4E] text-white pt-16 pb-20 sm:pt-24 sm:pb-28">
+              {/* Animated / transparent backdrop layers */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+                {/* Subtle high-resolution translucent texture & image overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-25 scale-105"
+                  style={{
+                    backgroundImage: `url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")`,
+                  }}
+                />
+                
+                {/* Floating ambient motion gradient orbs matching flyer palette */}
+                <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#006C6D] blur-3xl opacity-40 animate-float-slow" />
+                <div className="absolute top-1/4 -right-24 w-80 h-80 rounded-full bg-[#F1B01C] blur-3xl opacity-20 animate-float-reverse" />
+                <div className="absolute -bottom-24 left-1/3 w-96 h-96 rounded-full bg-[#002E2F] blur-2xl opacity-60 animate-pulse-glow" />
+
+                {/* Subtle grid pattern overlay for professional depth */}
+                <div 
+                  className="absolute inset-0 opacity-[0.07]" 
+                  style={{
+                    backgroundImage: 'radial-gradient(circle, #D3EDE9 1px, transparent 1px)',
+                    backgroundSize: '32px 32px'
+                  }}
+                />
+
+                {/* Top-to-bottom transparency gradient blend */}
+                <div className="absolute inset-0 bg-linear-to-b from-[#004D4E]/80 via-transparent to-[#004D4E]/90" />
+              </div>
+
+              <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-3xl mx-auto text-center space-y-6">
-                  {/* Standalone Logo at top of Hero - NO tagline or words underneath */}
-                  <div className="flex justify-center mb-4">
-                    <Logo variant="white" className="scale-110 sm:scale-125" />
-                  </div>
+                  {/* Notice: Center logo box removed as requested: only the logo by the left side of the navbar is displayed */}
 
                   {/* Exact Hero Headline */}
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
@@ -103,7 +151,7 @@ export default function App() {
                   </h1>
 
                   {/* Exact Supporting Text */}
-                  <p className="text-base sm:text-lg lg:text-xl text-[#D3EDE9] leading-relaxed max-w-2xl mx-auto">
+                  <p className="text-base sm:text-lg lg:text-xl text-[#D3EDE9] leading-relaxed max-w-2xl mx-auto font-normal">
                     We help graduates, job seekers, early-career professionals and career switchers improve how they search, position themselves, apply and prepare for opportunities.
                   </p>
 
@@ -119,7 +167,7 @@ export default function App() {
 
                     <button
                       onClick={() => handleNavigate('masterclass')}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-sm sm:text-base bg-[#004D4E] hover:bg-[#003B3C] text-white border border-[#D3EDE9]/30 transition-all cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-sm sm:text-base bg-[#003B3C]/80 hover:bg-[#002E2F] text-white border border-[#D3EDE9]/30 transition-all cursor-pointer backdrop-blur-xs"
                     >
                       <span>EXPLORE THE MASTERCLASS</span>
                       <ChevronRight className="w-4 h-4 text-[#F1B01C]" />
@@ -253,76 +301,29 @@ export default function App() {
                       <span>Explore Masterclass Programme</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <button
-                      onClick={() => setIsMasterclassModalOpen(true)}
-                      className="w-full py-2 text-xs font-bold text-[#D3EDE9] hover:underline cursor-pointer text-center"
-                    >
-                      Direct Enrollment (₦6,999)
-                    </button>
+                    <div className="flex items-center justify-center gap-4 pt-1">
+                      <a
+                        href={PAYSTACK_PAYMENT_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-black text-[#F1B01C] hover:underline cursor-pointer inline-flex items-center gap-1"
+                      >
+                        <CreditCard className="w-3.5 h-3.5" />
+                        <span>Pay ₦6,999 on Paystack</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                      <span className="text-xs text-[#D3EDE9]/40">•</span>
+                      <button
+                        onClick={() => setIsMasterclassModalOpen(true)}
+                        className="text-xs font-bold text-[#D3EDE9] hover:underline cursor-pointer"
+                      >
+                        Enrollment Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
-
-            {/* Real Proof Section */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3 py-1 rounded-full">
-                  Verified Candidates
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-2">
-                  Real Proof
-                </h2>
-                <p className="text-slate-600 text-sm mt-1">
-                  Professionals who have benefited from the How to Get Jobs methodologies.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-[#006C6D] transition-colors">
-                  <div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg mb-4">
-                      MT
-                    </div>
-                    <h3 className="text-xl font-extrabold text-slate-950">M.M. Tukur</h3>
-                    <p className="text-sm font-semibold text-[#006C6D] mt-1">Marketing Lead, FunZ</p>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#006C6D]" />
-                    <span>Verified Candidate</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-[#006C6D] transition-colors">
-                  <div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg mb-4">
-                      FE
-                    </div>
-                    <h3 className="text-xl font-extrabold text-slate-950">Faith Ejeh</h3>
-                    <p className="text-sm font-semibold text-[#006C6D] mt-1">Business Development Strategist, Shaféwears</p>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#006C6D]" />
-                    <span>Verified Candidate</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-[#006C6D] transition-colors">
-                  <div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg mb-4">
-                      EA
-                    </div>
-                    <h3 className="text-xl font-extrabold text-slate-950">Emmanuel Adetayo</h3>
-                    <p className="text-sm font-semibold text-[#006C6D] mt-1">Mechanical Engineer</p>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#006C6D]" />
-                    <span>Verified Candidate</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             {/* 1. Mission, 2. Vision, 3. Goal */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center max-w-2xl mx-auto mb-10">
@@ -713,33 +714,141 @@ export default function App() {
               <h1 className="text-3xl sm:text-5xl font-black text-white">
                 HOW TO GET JOBS MASTERCLASS
               </h1>
-              <p className="text-base sm:text-lg text-[#D3EDE9] max-w-2xl mx-auto leading-relaxed">
-                A practical live Masterclass designed to help you improve your career positioning, job search, CV, LinkedIn, applications and interview preparation.
+              <p className="text-base sm:text-xl font-bold text-[#F1B01C] max-w-2xl mx-auto">
+                From Applying randomly to applying strategically.
+              </p>
+              <p className="text-sm sm:text-base text-[#D3EDE9] max-w-2xl mx-auto leading-relaxed">
+                This practical career masterclass was designed to help you position yourself, find better opportunities and improve your chances of getting hired.
               </p>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href={PAYSTACK_PAYMENT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-black text-sm sm:text-base bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 shadow-xl transition-all cursor-pointer active:scale-95"
+                >
+                  <CreditCard className="w-4 h-4 text-slate-950" />
+                  <span>Pay with Paystack (₦6,999)</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+
                 <button
                   onClick={() => setIsMasterclassModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-black text-sm sm:text-base bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 shadow-xl transition-all cursor-pointer active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm bg-[#003B3C] hover:bg-[#002E2F] text-[#D3EDE9] border border-[#006C6D] transition-all cursor-pointer"
                 >
-                  <Lock className="w-4 h-4 text-slate-950" />
-                  <span>Enroll in Masterclass (₦6,999)</span>
+                  <Lock className="w-4 h-4 text-[#F1B01C]" />
+                  <span>Enrollment Guide & Syllabus</span>
                 </button>
               </div>
             </div>
 
-            {/* The 7 Live Sessions in Depth */}
+            {/* Official Masterclass Flyer Showcase & Target Audience Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div className="lg:col-span-6 space-y-6">
+                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
+                    Official Masterclass Flier
+                  </span>
+
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 leading-tight">
+                    From Applying Randomly to Applying Strategically
+                  </h2>
+
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    This practical career masterclass was designed to help you position yourself, find better opportunities and improve your chances of getting hired.
+                  </p>
+
+                  {/* Who Should Attend - Matching Flyer */}
+                  <div className="space-y-3 pt-2">
+                    <div className="flex items-center gap-2 text-sm font-extrabold text-[#004D4E] uppercase tracking-wide">
+                      <Users className="w-4 h-4 text-[#006C6D]" />
+                      <span>Who Should Attend?</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-xs text-slate-950">Graduates</div>
+                          <div className="text-[11px] text-slate-500">Entering the corporate workplace</div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-xs text-slate-950">Job Seekers</div>
+                          <div className="text-[11px] text-slate-500">Struggling with screening rejections</div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-xs text-slate-950">Career Switchers</div>
+                          <div className="text-[11px] text-slate-500">Pivoting into high-growth industries</div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-xs text-slate-950">Early Career Professionals</div>
+                          <div className="text-[11px] text-slate-500">Advancing into mid-level roles</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                    <a
+                      href={PAYSTACK_PAYMENT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-4 rounded-full font-black text-sm bg-[#006C6D] hover:bg-[#004D4E] text-white shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <CreditCard className="w-4 h-4 text-[#F1B01C]" />
+                      <span>Join the Masterclass — Just ₦6,999</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+
+                    <button
+                      onClick={() => setIsMasterclassModalOpen(true)}
+                      className="px-6 py-4 rounded-full font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer text-center"
+                    >
+                      View Syllabus Guide
+                    </button>
+                  </div>
+                </div>
+
+                {/* Masterclass Flyer Image Showcase */}
+                <div className="lg:col-span-6 flex justify-center">
+                  <MasterclassFlyer onEnrollClick={() => setIsMasterclassModalOpen(true)} />
+                </div>
+              </div>
+            </div>
+
+            {/* The 7 Live Sessions in Depth - Exact 7 Pointers from Flyer */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xs space-y-8">
                 <div className="text-center max-w-2xl mx-auto">
                   <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-                    Complete Syllabus
+                    Inside the Masterclass
                   </span>
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-2">
                     The 7 Live Interactive Sessions
                   </h2>
                   <p className="text-slate-600 text-sm mt-1">
-                    Live instructor delivery, candidate interaction, and real-time document audits.
+                    Derived directly from our core curriculum pointers: hands-on, live instructor delivery with real-time feedback.
                   </p>
                 </div>
 
@@ -747,38 +856,38 @@ export default function App() {
                   {[
                     {
                       num: 'SESSION 1',
-                      title: 'Career Positioning',
-                      desc: 'Clarify your exact value proposition, target job functions, and define where your background gives you an unfair competitive edge.',
+                      title: "Identify jobs you're actually qualified for",
+                      desc: 'Clarify your true market positioning, pinpoint the roles matching your exact competencies, and eliminate guesswork so you stop wasting hours applying for mismatches.',
                     },
                     {
                       num: 'SESSION 2',
-                      title: 'Job Search Strategy',
-                      desc: 'Build an intentional, high-converting pipeline instead of blindly submitting applications to overcrowded job boards.',
+                      title: 'Search for jobs beyond job boards',
+                      desc: 'Uncover the hidden job market, engage hiring managers and internal talent recruiters directly, and find unadvertised vacancies before they reach public portals.',
                     },
                     {
                       num: 'SESSION 3',
-                      title: 'Build a CV Recruiters Can Understand',
-                      desc: 'Craft an ATS-compliant and human-friendly CV with quantified metrics that passes the critical 6-second recruiter screen.',
+                      title: 'Build a CV recruiters can quickly understand',
+                      desc: 'Craft a clean, ATS-compliant and human-friendly CV with quantified metrics that communicates your measurable impact in the critical 6-second recruiter screen.',
                     },
                     {
                       num: 'SESSION 4',
-                      title: 'Position Your LinkedIn Profile',
-                      desc: 'Optimize your digital footprint, headline, and about section to attract inbound recruiter searches and direct interview invitations.',
+                      title: 'Write stronger applications',
+                      desc: 'Tailor your application responses, screening questions, and cover notes to address the exact competencies hiring managers are scoring candidates on.',
                     },
                     {
                       num: 'SESSION 5',
-                      title: 'Write Stronger Applications',
-                      desc: 'Tailor your application answers, cover notes, and screening submissions to hit the exact competencies hiring managers evaluate.',
+                      title: 'Prepare for interviews with confidence',
+                      desc: 'Master structured storytelling frameworks, handle tough behavioral and competency questions with poise, and project commanding presence in panels.',
                     },
                     {
                       num: 'SESSION 6',
-                      title: 'Prepare for Interviews',
-                      desc: 'Master structured storytelling models (STAR-L), handle behavioral questions, and project authority in panel discussions.',
+                      title: 'Follow up professionally',
+                      desc: 'Navigate post-interview communication, inquire about application statuses with poise, and stay top-of-mind without sounding anxious or desperate.',
                     },
                     {
                       num: 'SESSION 7',
-                      title: 'Build Your Personal Job-Search System',
-                      desc: 'Establish repeatable daily and weekly execution habits, track follow-ups, and build momentum until you land multiple offers.',
+                      title: 'Build a personal job search strategy',
+                      desc: 'Establish a systematic daily and weekly execution pipeline, track applications methodically, and sustain high momentum until you land multiple offers.',
                     },
                   ].map((sess, idx) => (
                     <div
@@ -864,13 +973,23 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="pt-2">
-                  <button
-                    onClick={() => setIsMasterclassModalOpen(true)}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={PAYSTACK_PAYMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-black text-base bg-[#006C6D] hover:bg-[#004D4E] text-white shadow-lg transition-all cursor-pointer active:scale-95"
                   >
-                    <span>Enroll Now for ₦6,999</span>
-                    <ArrowRight className="w-4 h-4 text-[#F1B01C]" />
+                    <CreditCard className="w-5 h-5 text-[#F1B01C]" />
+                    <span>Proceed to Paystack Payment (₦6,999)</span>
+                    <ExternalLink className="w-4 h-4 text-[#F1B01C]" />
+                  </a>
+
+                  <button
+                    onClick={() => setIsMasterclassModalOpen(true)}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm text-[#006C6D] hover:bg-[#D3EDE9]/40 border border-[#006C6D]/30 transition-all cursor-pointer"
+                  >
+                    <span>Enrollment Details & Schedule</span>
                   </button>
                 </div>
               </div>
@@ -902,12 +1021,16 @@ export default function App() {
                   Register Free Webinar (30 Nov)
                 </button>
 
-                <button
-                  onClick={() => setIsMasterclassModalOpen(true)}
-                  className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm bg-[#004D4E] hover:bg-[#003B3C] text-white border border-[#D3EDE9]/40 transition-all cursor-pointer"
+                <a
+                  href={PAYSTACK_PAYMENT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm bg-[#004D4E] hover:bg-[#003B3C] text-white border border-[#D3EDE9]/40 transition-all cursor-pointer"
                 >
-                  Enroll in Masterclass (₦6,999)
-                </button>
+                  <CreditCard className="w-4 h-4 text-[#F1B01C]" />
+                  <span>Pay Masterclass on Paystack (₦6,999)</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#F1B01C]" />
+                </a>
               </div>
             </div>
           </div>

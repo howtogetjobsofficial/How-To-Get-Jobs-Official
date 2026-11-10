@@ -1,6 +1,8 @@
 import React from 'react';
-import { Mail, ArrowRight, Calendar, Lock } from 'lucide-react';
+import { Mail, ArrowRight, Calendar, Lock, CreditCard, ExternalLink } from 'lucide-react';
 import { Logo } from './Logo';
+
+export const PAYSTACK_PAYMENT_URL = 'https://paystack.shop/pay/howtogetjobs';
 
 interface FooterProps {
   onNavigate: (view: 'landing' | 'webinar' | 'masterclass') => void;
@@ -95,12 +97,16 @@ export const Footer: React.FC<FooterProps> = ({
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 
-              <button
-                onClick={onOpenMasterclassModal}
+              <a
+                href={PAYSTACK_PAYMENT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full py-2.5 px-4 rounded-full text-xs font-black bg-[#006C6D] hover:bg-[#005a5b] text-white transition-colors cursor-pointer flex items-center justify-center gap-2 border border-[#D3EDE9]/30"
               >
-                <span>Enroll in Masterclass</span>
-              </button>
+                <CreditCard className="w-3.5 h-3.5 text-[#F1B01C]" />
+                <span>Pay Masterclass on Paystack (₦6,999)</span>
+                <ExternalLink className="w-3 h-3 text-[#F1B01C]" />
+              </a>
             </div>
           </div>
         </div>

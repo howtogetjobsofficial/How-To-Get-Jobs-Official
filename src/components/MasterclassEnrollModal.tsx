@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, Lock } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Lock, ExternalLink, CreditCard, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Logo } from './Logo';
 
@@ -7,6 +7,8 @@ interface MasterclassEnrollModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export const PAYSTACK_PAYMENT_URL = 'https://paystack.shop/pay/howtogetjobs';
 
 export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
   isOpen,
@@ -34,9 +36,32 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
     ZAR: { symbol: 'R', value: '85', label: 'Approx. ZAR' },
   };
 
-  const handleEnroll = (e: React.FormEvent) => {
+  const handleEnrollAndPay = (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
+
+    // Store registration locally
+    try {
+      localStorage.setItem(
+        'htgj_masterclass_candidate',
+        JSON.stringify({
+          ...formData,
+          enrolledAt: new Date().toISOString(),
+          paymentStatus: 'pending_paystack',
+          paymentUrl: PAYSTACK_PAYMENT_URL,
+        })
+      );
+    } catch {
+      // ignore
+    }
+
+    // Launch Paystack payment link
+    const paystackWindow = window.open(PAYSTACK_PAYMENT_URL, '_blank', 'noopener,noreferrer');
+    if (!paystackWindow) {
+      // In case popups are blocked by browser, location fallback or user clicks link
+      window.location.href = PAYSTACK_PAYMENT_URL;
+    }
+
     setTimeout(() => {
       setIsProcessing(false);
       setIsCompleted(true);
@@ -50,7 +75,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
       } catch {
         // ignore
       }
-    }, 1000);
+    }, 700);
   };
 
   return (
@@ -59,6 +84,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors z-20 cursor-pointer"
+          aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
@@ -71,7 +97,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
                 <Logo variant="white" />
               </div>
               <div className="inline-flex items-center gap-1.5 bg-[#F1B01C] text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider mb-2">
-                7 LIVE SESSIONS
+                7 LIVE SESSIONS • MASTERCLASS
               </div>
               <h3 className="text-xl sm:text-2xl font-black text-white">
                 HOW TO GET JOBS MASTERCLASS
@@ -82,24 +108,39 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
             </div>
 
             <div className="p-6">
-              {/* Primary Price Display: ₦6,999 & Approximate Currencies */}
-              <div className="bg-[#D3EDE9]/50 border border-[#006C6D]/20 rounded-2xl p-4 mb-5 text-center">
-                <div className="text-xs uppercase font-extrabold tracking-wider text-[#004D4E] mb-1">
-                  Official Programme Fee
-                </div>
-                <div className="text-3xl sm:text-4xl font-black text-[#006C6D]">
-                  ₦6,999
-                </div>
-                <div className="text-xs font-bold text-slate-700 mt-1">
-                  7 LIVE SESSIONS • LIVE INSTRUCTOR-LED
+              {/* Direct Instant Paystack Button (Top CTA) */}
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-5 text-center">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="text-left">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-[#006C6D]">
+                      Official Tuition Fee
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-black text-slate-950">
+                      ₦6,999
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium">
+                      One-time payment • All 7 Live Sessions
+                    </div>
+                  </div>
+
+                  <a
+                    href={PAYSTACK_PAYMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-black text-sm bg-[#006C6D] hover:bg-[#004D4E] text-white shadow-md transition-all cursor-pointer hover:scale-102"
+                  >
+                    <CreditCard className="w-4 h-4 text-[#F1B01C]" />
+                    <span>Pay with Paystack</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
                 </div>
 
                 {/* Approximate currency toggle pills */}
-                <div className="mt-4 pt-3 border-t border-[#006C6D]/15">
+                <div className="mt-4 pt-3 border-t border-slate-200 text-left">
                   <div className="text-[11px] text-slate-600 mb-2 font-medium">
                     View approximate international equivalent:
                   </div>
-                  <div className="flex flex-wrap justify-center gap-1.5">
+                  <div className="flex flex-wrap gap-1.5">
                     {(['NGN', 'USD', 'GBP', 'EUR', 'GHS', 'KES', 'ZAR'] as const).map((curr) => (
                       <button
                         key={curr}
@@ -119,54 +160,83 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
                   {selectedCurrency !== 'NGN' && (
                     <div className="mt-2 text-xs font-bold text-[#006C6D]">
                       {currencyEquivalents[selectedCurrency].label}:{' '}
-                      <span className="text-sm font-black">
+                      <span className="text-sm font-black text-slate-900">
                         {currencyEquivalents[selectedCurrency].symbol}
                         {currencyEquivalents[selectedCurrency].value}
                       </span>
                     </div>
                   )}
 
-                  <p className="text-[11px] text-slate-500 mt-3 leading-tight italic">
+                  <p className="text-[10px] text-slate-500 mt-2 italic leading-tight">
                     “International currency equivalents are approximate and may change with exchange rates. The official programme price is ₦6,999.”
                   </p>
                 </div>
               </div>
 
-              {/* 7 Live Sessions Summary */}
-              <div className="space-y-1.5 text-xs text-slate-800 mb-5 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                <div className="font-bold text-slate-900 mb-1">Includes All 7 Live Interactive Sessions:</div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 1: Career Positioning</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 2: Job Search Strategy</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 3: Build a CV Recruiters Can Understand</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 4: Position Your LinkedIn Profile</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 5: Write Stronger Applications</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 6: Prepare for Interviews</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
-                  <span>Session 7: Build Your Personal Job-Search System</span>
+              {/* Masterclass Flyer Preview Card & Audience Badges */}
+              <div className="mb-5 bg-linear-to-r from-[#004D4E] to-[#006C6D] p-3.5 rounded-2xl text-white flex items-center gap-3.5">
+                <img
+                  src="/assets/aistudio/image_70face9d.png"
+                  alt="How to Get Jobs Masterclass Flyer"
+                  className="w-16 h-20 object-cover rounded-lg border border-[#F1B01C] shrink-0 shadow-sm"
+                />
+                <div className="space-y-1 text-xs">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#F1B01C]">
+                    From Applying Randomly to Applying Strategically
+                  </div>
+                  <div className="font-extrabold text-white text-sm">
+                    Inside the Masterclass
+                  </div>
+                  <div className="text-[11px] text-[#D3EDE9]">
+                    For: Graduates • Job seekers • Career switchers • Early career professionals
+                  </div>
                 </div>
               </div>
 
-              {/* Form */}
-              <form onSubmit={handleEnroll} className="space-y-3.5">
+              {/* 7 Live Sessions Summary - Exact 7 Pointers from Flyer */}
+              <div className="space-y-2 text-xs text-slate-800 mb-5 bg-[#D3EDE9]/30 p-4 rounded-2xl border border-[#006C6D]/20">
+                <div className="font-black text-[#004D4E] flex items-center justify-between">
+                  <span>Inside the Masterclass (7 Live Sessions):</span>
+                  <span className="text-[11px] text-[#006C6D] font-bold">100% Live</span>
+                </div>
+                <div className="grid grid-cols-1 gap-1.5 pt-1">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 1:</strong> Identify jobs you're actually qualified for</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 2:</strong> Search for jobs beyond job boards</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 3:</strong> Build a CV recruiters can quickly understand</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 4:</strong> Write stronger applications</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 5:</strong> Prepare for interviews with confidence</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 6:</strong> Follow up professionally</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#006C6D] shrink-0" />
+                    <span><strong>Session 7:</strong> Build a personal job search strategy</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form to enter candidate details and proceed to Paystack */}
+              <form onSubmit={handleEnrollAndPay} className="space-y-3.5">
+                <div className="text-xs font-bold text-slate-800 pb-1">
+                  Enter your details to receive live session invitations and syllabus materials:
+                </div>
+
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
                     Full Name *
@@ -215,26 +285,39 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className="w-full py-3.5 px-6 rounded-full font-extrabold text-sm bg-[#006C6D] hover:bg-[#004D4E] text-white shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-70"
+                    className="w-full py-4 px-6 rounded-full font-extrabold text-sm sm:text-base bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-70"
                   >
                     {isProcessing ? (
-                      <span>Processing Enrollment...</span>
+                      <span>Redirecting to Paystack...</span>
                     ) : (
                       <>
-                        <Lock className="w-4 h-4 text-[#F1B01C]" />
-                        <span>Enroll Now • Pay ₦6,999</span>
+                        <Lock className="w-4 h-4 text-slate-950" />
+                        <span>Proceed to Paystack Checkout • ₦6,999</span>
+                        <ArrowRight className="w-4 h-4" />
                       </>
                     )}
                   </button>
                 </div>
 
-                <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 pt-2">
-                  <div className="flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#006C6D]" />
-                    <span>Live Interactive Cohort Access</span>
+                {/* Paystack Trust & Security Badges */}
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 mt-2 space-y-1.5 text-center">
+                  <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
+                    <ShieldCheck className="w-4 h-4 text-[#006C6D]" />
+                    <span>Secured by Paystack (256-Bit SSL Encryption)</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span>Direct Instructor Support</span>
+                  <div className="text-[11px] text-slate-500">
+                    Accepts Debit & Credit Cards, Bank Transfer, USSD, and Apple Pay.
+                  </div>
+                  <div className="pt-1">
+                    <a
+                      href={PAYSTACK_PAYMENT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] font-bold text-[#006C6D] hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>Direct Paystack Link: paystack.shop/pay/howtogetjobs</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
               </form>
@@ -247,25 +330,40 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
             </div>
 
             <h3 className="text-2xl font-black text-slate-900">
-              Welcome to the Masterclass, {formData.fullName.split(' ')[0]}!
+              Complete Your Payment on Paystack
             </h3>
             <p className="text-slate-600 text-sm max-w-md mx-auto">
-              Your registration for the <strong>7 LIVE SESSIONS</strong> of the How to Get Jobs Masterclass is received. Admission details and calendar schedule have been sent to <strong>{formData.email}</strong>.
+              A secure Paystack payment window has opened for <strong>{formData.fullName}</strong>. Once completed, your admission pass and calendar schedule will be confirmed for <strong>{formData.email}</strong>.
             </p>
 
-            <div className="my-6 p-4 rounded-2xl bg-[#006C6D] text-white text-left text-xs space-y-2">
-              <div className="font-bold text-[#F1B01C] text-sm">Next Steps:</div>
-              <div>1. Check your email for live session link invitations and preparation brief.</div>
-              <div>2. Have your current CV ready for live interactive audit in Session 3.</div>
-              <div>3. Join the live interactive classroom 10 minutes before start time.</div>
+            <div className="my-5 p-4 rounded-2xl bg-[#006C6D] text-white text-left text-xs space-y-2.5">
+              <div className="font-bold text-[#F1B01C] text-sm flex items-center gap-2">
+                <Lock className="w-4 h-4" />
+                <span>Paystack Payment Instructions:</span>
+              </div>
+              <div>1. Complete your ₦6,999 payment on the Paystack checkout page.</div>
+              <div>2. You can pay via Card, Bank Transfer, USSD, or Apple Pay.</div>
+              <div>3. If the payment tab did not open, click the button below to open Paystack now.</div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#006C6D] hover:bg-[#004D4E] text-white transition-colors cursor-pointer"
-            >
-              Done
-            </button>
+            <div className="space-y-2 pt-2">
+              <a
+                href={PAYSTACK_PAYMENT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-black text-sm bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 transition-all cursor-pointer shadow-md"
+              >
+                <span>Re-open Paystack Checkout (₦6,999)</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+
+              <button
+                onClick={onClose}
+                className="w-full py-3 px-6 rounded-full font-bold text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                Close Window
+              </button>
+            </div>
           </div>
         )}
       </div>
