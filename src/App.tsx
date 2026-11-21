@@ -18,7 +18,8 @@ import {
   HelpCircle,
   Play,
   CreditCard,
-  ExternalLink
+  ExternalLink,
+  FileSpreadsheet
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -28,12 +29,20 @@ import { MasterclassFlyer } from './components/MasterclassFlyer';
 import { WebinarCountdown } from './components/WebinarCountdown';
 import { RegistrationModal } from './components/RegistrationModal';
 import { MasterclassEnrollModal, PAYSTACK_PAYMENT_URL } from './components/MasterclassEnrollModal';
+import { ImmersiveNavigationOverlay } from './components/ImmersiveNavigationOverlay';
+import { GoogleSheetsSyncModal } from './components/GoogleSheetsSyncModal';
+import { loadLinkedSheetConfig, LinkedSheetConfig } from './lib/googleSheets';
 
 export default function App() {
   // Navigation view: 'landing' (first view / landing page), 'webinar' (strictly free webinar), 'masterclass' (strictly masterclass)
   const [currentView, setCurrentView] = useState<'landing' | 'webinar' | 'masterclass'>('landing');
   const [isWebinarModalOpen, setIsWebinarModalOpen] = useState(false);
   const [isMasterclassModalOpen, setIsMasterclassModalOpen] = useState(false);
+  const [isImmersiveNavOpen, setIsImmersiveNavOpen] = useState(false);
+  const [isSheetsModalOpen, setIsSheetsModalOpen] = useState(false);
+  const [linkedSheetConfig, setLinkedSheetConfig] = useState<LinkedSheetConfig | null>(() =>
+    loadLinkedSheetConfig()
+  );
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Currency converter state for Masterclass pricing
@@ -67,10 +76,22 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const handleNavigate = (view: 'landing' | 'webinar' | 'masterclass') => {
+  const handleNavigate = (view: 'landing' | 'webinar' | 'masterclass', sectionId?: string) => {
     setCurrentView(view);
     window.location.hash = view === 'landing' ? '' : view;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (sectionId && view === 'landing') {
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -95,12 +116,13 @@ export default function App() {
         <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#006C6D]/5 blur-3xl pointer-events-none" />
       </div>
 
-      {/* 1. NAVBAR - Suspended floating island (Yonbox style) */}
+      {/* 1. NAVBAR - Suspended floating island (Yonbox / Schrödinger Techs style) */}
       <Navbar
         currentView={currentView}
         onNavigate={handleNavigate}
         onOpenWebinarModal={() => setIsWebinarModalOpen(true)}
         onOpenMasterclassModal={() => setIsMasterclassModalOpen(true)}
+        onOpenImmersiveNav={() => setIsImmersiveNavOpen(true)}
       />
 
       <main className="relative z-10 flex-1 space-y-16 sm:space-y-24 pb-20">
@@ -190,7 +212,7 @@ export default function App() {
             </section>
 
             {/* Two Main Programme Portals Section */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="learning-paths" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center max-w-2xl mx-auto mb-10">
                 <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
                   Choose Your Learning Path
@@ -325,7 +347,7 @@ export default function App() {
               </div>
             </section>
             {/* 1. Mission, 2. Vision, 3. Goal */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="mission-vision" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center max-w-2xl mx-auto mb-10">
                 <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
                   Our Purpose & Commitments
@@ -524,7 +546,7 @@ export default function App() {
             </section>
 
             {/* General FAQ Section */}
-            <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="faq-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center mb-8">
                 <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3 py-1 rounded-full">
                   Frequently Asked Questions
@@ -695,6 +717,57 @@ export default function App() {
                     <div className="font-bold text-white text-sm mb-1">Career Switchers</div>
                     <div>Transitioning into new industries or global remote opportunities.</div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Google Sheets Registration Link & Sync Card */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#006C6D]/25 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                    <FileSpreadsheet className="w-6 h-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-[#006C6D]">
+                      Google Sheets Integration
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-black text-slate-950">
+                      {linkedSheetConfig?.spreadsheetId
+                        ? `Linked Sheet: ${linkedSheetConfig.spreadsheetTitle}`
+                        : 'Link Free Webinar Form to Google Sheets'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 max-w-2xl">
+                      {linkedSheetConfig?.spreadsheetId
+                        ? `Saving attendee registrations to tab "${linkedSheetConfig.sheetTabTitle}". Sign in with Google to view live rows or sync pending entries.`
+                        : 'Connect your Google account to create a webinar spreadsheet or link an existing Google Sheet and sync attendee registrations.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  {linkedSheetConfig?.spreadsheetId && (
+                    <a
+                      href={`https://docs.google.com/spreadsheets/d/${linkedSheetConfig.spreadsheetId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full text-xs font-bold bg-[#D3EDE9] hover:bg-[#c2e4de] text-[#004D4E] transition-colors"
+                    >
+                      <span>Open Google Sheet</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setIsSheetsModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-black bg-[#006C6D] hover:bg-[#004D4E] text-white shadow-sm transition-all cursor-pointer"
+                  >
+                    <FileSpreadsheet className="w-4 h-4 text-[#F1B01C]" />
+                    <span>
+                      {linkedSheetConfig?.spreadsheetId
+                        ? 'Manage & Sync Google Sheet'
+                        : 'Connect Google Sheet'}
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1044,15 +1117,32 @@ export default function App() {
         onOpenMasterclassModal={() => setIsMasterclassModalOpen(true)}
       />
 
-      {/* Modals */}
+      {/* Modals & Fullscreen Overlays */}
       <RegistrationModal
         isOpen={isWebinarModalOpen}
         onClose={() => setIsWebinarModalOpen(false)}
+        onOpenSheetsSync={() => setIsSheetsModalOpen(true)}
+      />
+
+      <GoogleSheetsSyncModal
+        isOpen={isSheetsModalOpen}
+        onClose={() => setIsSheetsModalOpen(false)}
+        onConfigUpdated={(cfg) => setLinkedSheetConfig(cfg)}
       />
 
       <MasterclassEnrollModal
         isOpen={isMasterclassModalOpen}
         onClose={() => setIsMasterclassModalOpen(false)}
+      />
+
+      {/* Replicated Dynamic Immersive Navigation System (Dedicated Backgrounds per Item) */}
+      <ImmersiveNavigationOverlay
+        isOpen={isImmersiveNavOpen}
+        onClose={() => setIsImmersiveNavOpen(false)}
+        currentView={currentView}
+        onNavigate={handleNavigate}
+        onOpenWebinarModal={() => setIsWebinarModalOpen(true)}
+        onOpenMasterclassModal={() => setIsMasterclassModalOpen(true)}
       />
     </div>
   );

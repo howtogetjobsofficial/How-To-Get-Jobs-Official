@@ -4,9 +4,10 @@ import { Logo } from './Logo';
 
 interface NavbarProps {
   currentView: 'landing' | 'webinar' | 'masterclass';
-  onNavigate: (view: 'landing' | 'webinar' | 'masterclass') => void;
+  onNavigate: (view: 'landing' | 'webinar' | 'masterclass', sectionId?: string) => void;
   onOpenWebinarModal: () => void;
   onOpenMasterclassModal: () => void;
+  onOpenImmersiveNav: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -14,6 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onOpenWebinarModal,
   onOpenMasterclassModal,
+  onOpenImmersiveNav,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,11 +48,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Floating / Suspended Navbar Island - Exact Yonbox floating capsule structure */}
-      <header className="sticky top-4 z-50 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
+      {/* Floating / Suspended Navbar Island - Inspired by Schrodinger Techs and Yonbox */}
+      <header className="sticky top-4 z-40 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
         <div className="max-w-6xl mx-auto pointer-events-auto">
           <div className="bg-white/92 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,40,40,0.14)] rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,77,78,0.2)]">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-3 sm:gap-4">
               {/* Standalone Logo on the left side - click leads to home */}
               <div
                 onClick={() => handleNav('landing')}
@@ -60,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Logo variant="teal" />
               </div>
 
-              {/* Center Menu: Suspended Floating Pill Segment (Yonbox-style) */}
+              {/* Center Menu: Suspended Floating Pill Segment */}
               <nav className="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/70">
                 <button
                   onClick={() => handleNav('landing')}
@@ -98,9 +100,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <Lock className="w-3.5 h-3.5 text-[#F1B01C]" />
                   <span>Masterclass</span>
                 </button>
+
+                {/* Reference Site Replication: Immersive Dynamic Menu Trigger */}
+                <button
+                  onClick={onOpenImmersiveNav}
+                  className="px-3.5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 bg-[#004D4E]/10 hover:bg-[#004D4E]/20 text-[#004D4E]"
+                  title="Explore all pages with dedicated visual backgrounds"
+                >
+                  <Menu className="w-3.5 h-3.5 text-[#006C6D]" />
+                  <span>All Sections</span>
+                </button>
               </nav>
 
-              {/* Right CTA Actions - Pill Buttons matching Yonbox suspended style */}
+              {/* Right CTA Actions - Pill Buttons */}
               <div className="hidden sm:flex items-center gap-2 shrink-0">
                 <button
                   onClick={onOpenWebinarModal}
@@ -118,17 +130,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               {/* Mobile Hamburger Button */}
-              <div className="md:hidden flex items-center gap-2">
+              <div className="md:hidden flex items-center gap-1.5">
                 <button
-                  onClick={onOpenWebinarModal}
-                  className="px-3 py-1.5 rounded-full text-xs font-bold text-white bg-[#006C6D] cursor-pointer"
+                  onClick={onOpenImmersiveNav}
+                  className="px-3 py-1.5 rounded-full text-xs font-bold text-white bg-[#006C6D] flex items-center gap-1 cursor-pointer"
+                  title="Open immersive menu"
                 >
-                  Webinar
+                  <Menu className="w-3.5 h-3.5" />
+                  <span>Menu</span>
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="p-1.5 rounded-full text-slate-700 hover:text-slate-950 hover:bg-slate-100"
-                  aria-label="Toggle menu"
+                  aria-label="Toggle quick actions"
                 >
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
@@ -160,14 +174,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
 
                 <button
-                  onClick={() => handleNav('masterclass')}
-                  className={`w-full text-left py-2 px-3 rounded-full text-xs font-bold flex items-center justify-between ${
-                    currentView === 'masterclass' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
-                  }`}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenImmersiveNav();
+                  }}
+                  className="w-full text-left py-2.5 px-3 rounded-full text-xs font-bold bg-[#004D4E] text-[#D3EDE9] flex items-center justify-between"
                 >
-                  <span>Masterclass</span>
+                  <span className="flex items-center gap-2">
+                    <Menu className="w-3.5 h-3.5 text-[#F1B01C]" />
+                    <span>Explore All Sections (Immersive)</span>
+                  </span>
                   <span className="text-[10px] bg-[#F1B01C] text-slate-950 px-2 py-0.5 rounded-full font-black">
-                    7 LIVE
+                    EXPLORE
                   </span>
                 </button>
 
