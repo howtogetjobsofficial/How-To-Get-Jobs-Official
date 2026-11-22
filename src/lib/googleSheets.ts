@@ -31,10 +31,13 @@ export interface WebinarRegistration {
   syncedToSheet: boolean;
 }
 
+export const DEFAULT_SHEET_ACCOUNT_EMAIL = 'howtogetjobsofficial@gmail.com';
+
 export interface LinkedSheetConfig {
   spreadsheetId: string;
   spreadsheetTitle: string;
   sheetTabTitle: string;
+  organizerEmail?: string;
   appsScriptWebhookUrl?: string;
 }
 
@@ -79,9 +82,19 @@ export const initAuth = (
   });
 };
 
-export const googleSignIn = async (): Promise<{ user: User; accessToken: string }> => {
+export const googleSignIn = async (
+  loginHint: string = DEFAULT_SHEET_ACCOUNT_EMAIL
+): Promise<{ user: User; accessToken: string }> => {
   try {
     isSigningIn = true;
+    const customParams: Record<string, string> = {
+      prompt: 'select_account',
+    };
+    if (loginHint.trim()) {
+      customParams.login_hint = loginHint.trim();
+    }
+    provider.setCustomParameters(customParams);
+
     const result = await signInWithPopup(auth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (!credential?.accessToken) {

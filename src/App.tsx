@@ -31,7 +31,12 @@ import { RegistrationModal } from './components/RegistrationModal';
 import { MasterclassEnrollModal, PAYSTACK_PAYMENT_URL } from './components/MasterclassEnrollModal';
 import { ImmersiveNavigationOverlay } from './components/ImmersiveNavigationOverlay';
 import { GoogleSheetsSyncModal } from './components/GoogleSheetsSyncModal';
-import { loadLinkedSheetConfig, LinkedSheetConfig } from './lib/googleSheets';
+import { TestimonialSlider } from './components/TestimonialSlider';
+import {
+  loadLinkedSheetConfig,
+  LinkedSheetConfig,
+  DEFAULT_SHEET_ACCOUNT_EMAIL,
+} from './lib/googleSheets';
 
 export default function App() {
   // Navigation view: 'landing' (first view / landing page), 'webinar' (strictly free webinar), 'masterclass' (strictly masterclass)
@@ -346,6 +351,10 @@ export default function App() {
                 </div>
               </div>
             </section>
+
+            {/* Testimonial Slider Section (Auto-cycling carousel) */}
+            <TestimonialSlider />
+
             {/* 1. Mission, 2. Vision, 3. Goal */}
             <section id="mission-vision" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center max-w-2xl mx-auto mb-10">
@@ -730,17 +739,21 @@ export default function App() {
                   </div>
                   <div className="space-y-1">
                     <div className="text-xs font-extrabold uppercase tracking-wider text-[#006C6D]">
-                      Google Sheets Integration
+                      Google Sheets Integration • {linkedSheetConfig?.organizerEmail || DEFAULT_SHEET_ACCOUNT_EMAIL}
                     </div>
                     <h3 className="text-lg sm:text-xl font-black text-slate-950">
                       {linkedSheetConfig?.spreadsheetId
                         ? `Linked Sheet: ${linkedSheetConfig.spreadsheetTitle}`
+                        : linkedSheetConfig?.appsScriptWebhookUrl
+                        ? 'Google Sheet Connected via Apps Script'
                         : 'Link Free Webinar Form to Google Sheets'}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 max-w-2xl">
                       {linkedSheetConfig?.spreadsheetId
-                        ? `Saving attendee registrations to tab "${linkedSheetConfig.sheetTabTitle}". Sign in with Google to view live rows or sync pending entries.`
-                        : 'Connect your Google account to create a webinar spreadsheet or link an existing Google Sheet and sync attendee registrations.'}
+                        ? `Saving attendee registrations to tab "${linkedSheetConfig.sheetTabTitle}" (${linkedSheetConfig.organizerEmail || DEFAULT_SHEET_ACCOUNT_EMAIL}). Sign in with Google to view live rows or sync pending entries.`
+                        : linkedSheetConfig?.appsScriptWebhookUrl
+                        ? `Auto-forwarding new Free Webinar form entries directly to ${linkedSheetConfig.organizerEmail || DEFAULT_SHEET_ACCOUNT_EMAIL}'s Google Sheet.`
+                        : `Connect ${DEFAULT_SHEET_ACCOUNT_EMAIL} via Google Apps Script or Google Sign-In to save attendee registrations.`}
                     </p>
                   </div>
                 </div>
@@ -763,7 +776,7 @@ export default function App() {
                   >
                     <FileSpreadsheet className="w-4 h-4 text-[#F1B01C]" />
                     <span>
-                      {linkedSheetConfig?.spreadsheetId
+                      {linkedSheetConfig?.spreadsheetId || linkedSheetConfig?.appsScriptWebhookUrl
                         ? 'Manage & Sync Google Sheet'
                         : 'Connect Google Sheet'}
                     </span>

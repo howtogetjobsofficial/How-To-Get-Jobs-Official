@@ -33,6 +33,7 @@ import {
   appendRegistrationsToSheet,
   fetchSheetRows,
   APPS_SCRIPT_TEMPLATE,
+  DEFAULT_SHEET_ACCOUNT_EMAIL,
   WebinarRegistration,
   LinkedSheetConfig,
   SheetMetadata,
@@ -93,11 +94,15 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
   const [pendingMutation, setPendingMutation] = useState<PendingMutation | null>(null);
   const [isMutating, setIsMutating] = useState(false);
 
-  // Optional public webhook for unauthenticated visitors
-  const [showWebhookHelp, setShowWebhookHelp] = useState(false);
+  // Optional public webhook for unauthenticated visitors / bypassing Error 403 testing block
+  const [showWebhookHelp, setShowWebhookHelp] = useState(true);
+  const [preferredEmail, setPreferredEmail] = useState(
+    () => loadLinkedSheetConfig()?.organizerEmail || DEFAULT_SHEET_ACCOUNT_EMAIL
+  );
   const [webhookInput, setWebhookInput] = useState(
     () => loadLinkedSheetConfig()?.appsScriptWebhookUrl || ''
   );
+  const [isTestingWebhook, setIsTestingWebhook] = useState(false);
   const [copiedScript, setCopiedScript] = useState(false);
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -122,6 +127,7 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
       setRegistrations(loadRegistrations());
       const currentCfg = loadLinkedSheetConfig();
       setLinkedConfig(currentCfg);
+      setPreferredEmail(currentCfg?.organizerEmail || DEFAULT_SHEET_ACCOUNT_EMAIL);
       setWebhookInput(currentCfg?.appsScriptWebhookUrl || '');
       setErrorMsg(null);
       setStatusMsg(null);
@@ -132,14 +138,27 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
 
   const pendingRegistrations = registrations.filter((r) => !r.syncedToSheet);
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (emailHint?: string) => {
     setIsLoggingIn(true);
     setErrorMsg(null);
+    setStatusMsg(null);
+    const target = (emailHint ?? preferredEmail).trim() || DEFAULT_SHEET_ACCOUNT_EMAIL;
     try {
-      const result = await googleSignIn();
+      const result = await googleSignIn(target);
       setUser(result.user);
       setNeedsAuth(false);
-      setStatusMsg('Connected to Google Sheets. Choose or create a spreadsheet below.');
+      if (linkedConfig) {
+        const updatedCfg: LinkedSheetConfig = {
+          ...linkedConfig,
+          organizerEmail: result.user.email || target,
+        };
+        saveLinkedSheetConfig(updatedCfg);
+        setLinkedConfig(updatedCfg);
+        onConfigUpdated?.(updatedCfg);
+      }
+      setStatusMsg(
+        `Connected as ${result.user.email || target}. Choose or create a spreadsheet below.`
+      );
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Google sign-in failed.';
       setErrorMsg(msg);
@@ -199,6 +218,7 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
       spreadsheetId: fetchedMeta.spreadsheetId,
       spreadsheetTitle: fetchedMeta.title,
       sheetTabTitle: selectedTab,
+      organizerEmail: user?.email || preferredEmail.trim() || DEFAULT_SHEET_ACCOUNT_EMAIL,
       appsScriptWebhookUrl: webhookInput.trim() || linkedConfig?.appsScriptWebhookUrl,
     };
     saveLinkedSheetConfig(newConfig);
@@ -247,6 +267,7 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
         const createdCfg = await createWebinarSpreadsheet(token, pendingMutation.spreadsheetTitle);
         const fullCfg: LinkedSheetConfig = {
           ...createdCfg,
+          organizerEmail: user?.email || preferredEmail.trim() || DEFAULT_SHEET_ACCOUNT_EMAIL,
           appsScriptWebhookUrl: webhookInput.trim() || linkedConfig?.appsScriptWebhookUrl,
         };
         saveLinkedSheetConfig(fullCfg);
@@ -283,13 +304,22 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
 
   const handleSaveWebhook = () => {
     const trimmed = webhookInput.trim();
+    if (trimmed && !trimmed.startsWith('https://script.google.com/')) {
+      setErrorMsg(
+        'Please paste a valid Google Apps Script Web App URL starting with https://script.google.com/...'
+      );
+      return;
+    }
+    setErrorMsg(null);
     const baseCfg: LinkedSheetConfig = linkedConfig || {
       spreadsheetId: '',
-      spreadsheetTitle: 'Public Apps Script Sheet',
+      spreadsheetTitle: 'How to Get Jobs — Webinar Sheet (Apps Script)',
       sheetTabTitle: 'Registrations',
+      organizerEmail: preferredEmail.trim() || DEFAULT_SHEET_ACCOUNT_EMAIL,
     };
     const updated: LinkedSheetConfig = {
       ...baseCfg,
+      organizerEmail: preferredEmail.trim() || DEFAULT_SHEET_ACCOUNT_EMAIL,
       appsScriptWebhookUrl: trimmed || undefined,
     };
     saveLinkedSheetConfig(updated);
@@ -297,9 +327,43 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
     onConfigUpdated?.(updated);
     setStatusMsg(
       trimmed
-        ? 'Public Apps Script webhook saved. New visitor submissions will forward automatically.'
-        : 'Public Apps Script webhook cleared.'
+        ? 'Google Apps Script webhook connected! Every free webinar registration will automatically append to your Google Sheet.'
+        : 'Apps Script webhook cleared.'
     );
+  };
+
+  const handleTestWebhook = async () => {
+    const targetUrl = webhookInput.trim() || linkedConfig?.appsScriptWebhookUrl;
+    if (!targetUrl) {
+      setErrorMsg('Paste your Apps Script Web App URL first, then click Test.');
+      return;
+    }
+    setIsTestingWebhook(true);
+    setErrorMsg(null);
+    setStatusMsg(null);
+    try {
+      await fetch(targetUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          submittedAt: new Date().toISOString(),
+          ticketId: 'HGJ-TEST',
+          fullName: 'Test Registration Check',
+          email: preferredEmail.trim() || DEFAULT_SHEET_ACCOUNT_EMAIL,
+          phone: 'N/A',
+          status: 'Connection Test',
+          webinarDate: '30 Nov, 2026',
+        }),
+      });
+      setStatusMsg(
+        'Test row sent! Check your Google Sheet in howtogetjobsofficial@gmail.com to confirm "HGJ-TEST" appeared.'
+      );
+    } catch {
+      setErrorMsg('Could not reach the Apps Script URL. Verify it is deployed with "Anyone" access.');
+    } finally {
+      setIsTestingWebhook(false);
+    }
   };
 
   const handleCopyScript = () => {
@@ -437,7 +501,7 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
                 </div>
                 {needsAuth ? (
                   <p className="text-xs text-slate-600 mt-0.5">
-                    Sign in with Google to link your spreadsheet and save webinar registrations.
+                    Sign in with Google using <strong>{preferredEmail || DEFAULT_SHEET_ACCOUNT_EMAIL}</strong> to link your spreadsheet.
                   </p>
                 ) : (
                   <p className="text-xs text-slate-800 mt-0.5 font-semibold flex items-center gap-1.5">
@@ -452,7 +516,7 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
               {needsAuth ? (
                 <button
                   type="button"
-                  onClick={handleGoogleLogin}
+                  onClick={() => handleGoogleLogin()}
                   disabled={isLoggingIn}
                   className="gsi-material-button shrink-0"
                 >
@@ -490,15 +554,98 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
                   </div>
                 </button>
               ) : (
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Sign Out</span>
-                </button>
+                <div className="flex flex-wrap items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => handleGoogleLogin(preferredEmail)}
+                    disabled={isLoggingIn}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-extrabold bg-[#D3EDE9] hover:bg-[#c0e2dc] text-[#004D4E] cursor-pointer"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${isLoggingIn ? 'animate-spin' : ''}`} />
+                    <span>Switch Account</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 cursor-pointer"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
               )}
+            </div>
+
+            {/* Preferred Target Google Email Input */}
+            <div className="pt-3 border-t border-slate-200/80 flex flex-col sm:flex-row sm:items-center gap-2.5">
+              <label className="text-[11px] font-bold text-slate-700 whitespace-nowrap">
+                Target Google Sheet Email:
+              </label>
+              <input
+                type="email"
+                value={preferredEmail}
+                onChange={(e) => setPreferredEmail(e.target.value)}
+                placeholder="howtogetjobsofficial@gmail.com"
+                className="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#006C6D]"
+              />
+              {!needsAuth &&
+                user?.email &&
+                preferredEmail.trim() &&
+                user.email.toLowerCase() !== preferredEmail.trim().toLowerCase() && (
+                  <button
+                    type="button"
+                    onClick={() => handleGoogleLogin(preferredEmail)}
+                    className="px-3.5 py-1.5 rounded-full text-[11px] font-black bg-[#F1B01C] hover:bg-[#df9f12] text-slate-950 cursor-pointer shrink-0"
+                  >
+                    Switch to {preferredEmail.trim()}
+                  </button>
+                )}
+            </div>
+
+            {/* Error 403 / OAuth Testing Mode Recovery Guide */}
+            <div className="text-[11px] text-slate-700 bg-amber-50 rounded-xl p-3.5 border border-[#F1B01C]/60 space-y-2 leading-relaxed">
+              <div className="font-extrabold text-slate-950">
+                Seeing “Error 403: access_denied” for {DEFAULT_SHEET_ACCOUNT_EMAIL}?
+              </div>
+              <p>
+                Google blocks unverified apps in Testing mode for accounts not listed as Test Users.
+                Use any of these <strong>3 quick fixes</strong>:
+              </p>
+              <ul className="space-y-1 pl-3">
+                <li>
+                  <strong>1. Add Test User (10 sec):</strong> Open Google Cloud Audience settings as{' '}
+                  <code>shamakiwilliams11@gmail.com</code>, add{' '}
+                  <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong> under <em>Test users</em>, then click Sign in again.
+                </li>
+                <li>
+                  <strong>2. Share the Sheet (Fastest OAuth):</strong> Share your sheet in{' '}
+                  <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong> with <code>shamakiwilliams11@gmail.com</code> (Editor), then sign in below as <code>shamakiwilliams11@gmail.com</code>.
+                </li>
+                <li>
+                  <strong>3. Direct Apps Script Link (Zero OAuth Needed):</strong> Paste the Apps Script Web App URL from{' '}
+                  <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong>’s Google Sheet right below.
+                </li>
+              </ul>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <a
+                  href="https://console.cloud.google.com/auth/audience?project=gen-lang-client-0088803615"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-black bg-[#006C6D] hover:bg-[#004D4E] text-white"
+                >
+                  <span>Open Test Users in Google Cloud</span>
+                  <ExternalLink className="w-3 h-3 text-[#F1B01C]" />
+                </a>
+                {needsAuth && (
+                  <button
+                    type="button"
+                    onClick={() => handleGoogleLogin('shamakiwilliams11@gmail.com')}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 cursor-pointer"
+                  >
+                    <span>Sign in as shamakiwilliams11@gmail.com</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -732,31 +879,54 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
             )
           )}
 
-          {/* Optional Public Visitor Auto-Forward Webhook (Apps Script) */}
-          <div className="border border-slate-200 rounded-2xl overflow-hidden">
+          {/* Direct Google Sheet Apps Script Link (Works for howtogetjobsofficial@gmail.com without OAuth verification) */}
+          <div className="border-2 border-[#006C6D]/30 rounded-2xl overflow-hidden">
             <button
               type="button"
               onClick={() => setShowWebhookHelp(!showWebhookHelp)}
-              className="w-full px-5 py-3.5 bg-slate-50 hover:bg-slate-100 flex items-center justify-between text-xs font-bold text-slate-800 cursor-pointer"
+              className="w-full px-5 py-3.5 bg-[#D3EDE9]/40 hover:bg-[#D3EDE9]/60 flex items-center justify-between text-xs font-extrabold text-[#004D4E] cursor-pointer"
             >
-              <span>Optional: Auto-Forward Public Visitor Submissions (Apps Script URL)</span>
+              <span className="flex items-center gap-2">
+                <span>Direct Link via Google Apps Script (Works Instantly for {DEFAULT_SHEET_ACCOUNT_EMAIL})</span>
+                {linkedConfig?.appsScriptWebhookUrl && (
+                  <span className="text-[10px] bg-[#006C6D] text-white px-2 py-0.5 rounded-full font-black uppercase">
+                    Active
+                  </span>
+                )}
+              </span>
               {showWebhookHelp ? (
-                <ChevronUp className="w-4 h-4 text-slate-500" />
+                <ChevronUp className="w-4 h-4 text-[#004D4E]" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-500" />
+                <ChevronDown className="w-4 h-4 text-[#004D4E]" />
               )}
             </button>
 
             {showWebhookHelp && (
               <div className="p-5 bg-white border-t border-slate-200 space-y-3 text-xs text-slate-600">
-                <p>
-                  Visitors filling out the public webinar form are not signed into your Google
-                  account. To let public visitors write directly to your sheet automatically without
-                  signing in, deploy an Apps Script Web App inside your Google Sheet (
-                  <strong>Extensions → Apps Script</strong>) and paste the Web App URL below:
+                <p className="text-slate-700 leading-relaxed">
+                  To connect your Google Sheet in <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong> immediately
+                  without needing Google app verification or Test User approval:
                 </p>
+                <ol className="list-decimal pl-4 space-y-1 text-[11px] text-slate-700">
+                  <li>
+                    Sign into Google Sheets with <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong> and open your Webinar sheet.
+                  </li>
+                  <li>
+                    Click <strong>Extensions → Apps Script</strong>, paste the script below, and click <strong>Save</strong>.
+                  </li>
+                  <li>
+                    Click <strong>Deploy → New deployment → Web app</strong>, set <em>Execute as</em> to <strong>Me ({DEFAULT_SHEET_ACCOUNT_EMAIL})</strong> and <em>Who has access</em> to <strong>Anyone</strong>.
+                  </li>
+                  <li>
+                    Copy the Web App URL (ending in <code>/exec</code>), paste it below, and click <strong>Save URL</strong>.
+                  </li>
+                </ol>
+                <div className="p-2.5 rounded-xl bg-amber-50 border border-[#F1B01C]/50 text-[11px] text-slate-700 leading-relaxed">
+                  <strong>Tip if Apps Script says “Sorry, unable to open the file at present”:</strong>{' '}
+                  Google Apps Script breaks when multiple Google accounts are signed into the same browser (<code>authuser=7</code>). Open a new <strong>Incognito window</strong> (<code>Ctrl+Shift+N</code>), sign in <strong>only</strong> with <strong>{DEFAULT_SHEET_ACCOUNT_EMAIL}</strong>, open your sheet there, and click <strong>Extensions → Apps Script</strong>.
+                </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="url"
                     value={webhookInput}
@@ -764,13 +934,23 @@ export const GoogleSheetsSyncModal: React.FC<GoogleSheetsSyncModalProps> = ({
                     placeholder="https://script.google.com/macros/s/.../exec"
                     className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-[#006C6D]"
                   />
-                  <button
-                    type="button"
-                    onClick={handleSaveWebhook}
-                    className="px-4 py-2 rounded-full font-black text-xs bg-[#006C6D] hover:bg-[#004D4E] text-white cursor-pointer shrink-0"
-                  >
-                    Save URL
-                  </button>
+                  <div className="flex gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleSaveWebhook}
+                      className="px-4 py-2 rounded-full font-black text-xs bg-[#006C6D] hover:bg-[#004D4E] text-white cursor-pointer"
+                    >
+                      Save URL
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isTestingWebhook || !webhookInput.trim()}
+                      onClick={handleTestWebhook}
+                      className="px-4 py-2 rounded-full font-black text-xs bg-[#F1B01C] hover:bg-[#df9f12] text-slate-950 cursor-pointer disabled:opacity-50"
+                    >
+                      {isTestingWebhook ? 'Sending...' : 'Test Row'}
+                    </button>
+                  </div>
                 </div>
 
                 <div className="relative bg-slate-950 text-slate-100 p-3 rounded-xl font-mono text-[10px] overflow-x-auto">
