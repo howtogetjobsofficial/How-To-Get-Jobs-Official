@@ -80,15 +80,9 @@ export const TestimonialSlider: React.FC = () => {
       aria-label="Candidate Testimonials"
     >
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-          Candidate Stories
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-3">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
           Professionals Moving Forward
         </h2>
-        <p className="text-slate-600 text-sm sm:text-base mt-2">
-          Hear from professionals applying How to Get Jobs strategies across industries.
-        </p>
       </div>
 
       {/* Main Carousel Container */}
@@ -143,29 +137,8 @@ export const TestimonialSlider: React.FC = () => {
           </div>
         </div>
 
-        {/* Controls Bar: Prev/Next + Dots + Name Selector */}
-        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
-          {/* Quick Name Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {TESTIMONIALS.map((item, idx) => {
-              const isActive = idx === activeIndex;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-[#006C6D] text-white shadow-sm'
-                      : 'bg-white text-slate-700 border border-slate-200 hover:border-[#006C6D] hover:text-[#006C6D]'
-                  }`}
-                >
-                  {item.name}
-                </button>
-              );
-            })}
-          </div>
-
+        {/* Controls Bar: Prev / Dot Progress / Next */}
+        <div className="mt-6 flex items-center justify-center px-2">
           {/* Prev / Dot Progress / Next */}
           <div className="flex items-center gap-3">
             <button

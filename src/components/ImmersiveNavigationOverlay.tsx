@@ -39,7 +39,7 @@ export interface NavMenuVisualItem {
 export const MENU_ITEMS: NavMenuVisualItem[] = [
   {
     id: 'home',
-    label: 'Home & Guiding Philosophy',
+    label: 'Home',
     tagline: 'Become More Employable. Position Yourself Better. Get Hired.',
     badge: 'Overview',
     badgeColor: 'bg-[#D3EDE9] text-[#006C6D]',
@@ -48,9 +48,9 @@ export const MENU_ITEMS: NavMenuVisualItem[] = [
     themeColor: '#006C6D',
     targetView: 'landing',
     targetSection: 'top',
-    description: 'We equip graduates, job seekers, and career switchers across Africa with the skills, tools, and mentorship to thrive.',
-    stats: { label: 'Core Philosophy', value: '5-Step Journey' },
-    highlights: ['Assess → Learn → Build → Connect → Grow', 'From random applications to strategic positioning']
+    description: 'Helping graduates, job seekers, early-career professionals and career switchers improve how they search, position themselves, apply and prepare for opportunities.',
+    stats: { label: 'Focus', value: 'Career Readiness' },
+    highlights: ['Practical CV, LinkedIn & Job Search Strategy', 'From random applications to strategic positioning']
   },
   {
     id: 'webinar',
@@ -92,8 +92,8 @@ export const MENU_ITEMS: NavMenuVisualItem[] = [
     targetView: 'landing',
     targetSection: 'mission-vision',
     description: 'Africa’s leading career platform bridging what employers expect with what ambitious job seekers can offer.',
-    stats: { label: 'Pillars', value: '7 Core Values' },
-    highlights: ['Continuous Learning & Integrity', 'Empowerment, Excellence & Collaboration']
+    stats: { label: 'Pillars', value: '3 Core Values' },
+    highlights: ['Opportunity and Access & Practical Impact', 'Empowerment for Sustainable Career Growth']
   },
   {
     id: 'programmes',

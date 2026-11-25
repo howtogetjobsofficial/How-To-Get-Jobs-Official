@@ -179,7 +179,7 @@ export default function App() {
 
                   {/* Exact Supporting Text */}
                   <p className="text-base sm:text-lg lg:text-xl text-[#D3EDE9] leading-relaxed max-w-2xl mx-auto font-normal">
-                    We help graduates, job seekers, early-career professionals and career switchers improve how they search, position themselves, apply and prepare for opportunities.
+                    Helping graduates, job seekers, early-career professionals and career switchers improve how they search, position themselves, apply and prepare for opportunities.
                   </p>
 
                   {/* The Two Portals CTAs Leading to Registration */}
@@ -199,18 +199,6 @@ export default function App() {
                       <span>EXPLORE THE MASTERCLASS</span>
                       <ChevronRight className="w-4 h-4 text-[#F1B01C]" />
                     </button>
-                  </div>
-
-                  {/* Key Highlights */}
-                  <div className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-[#D3EDE9]">
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-[#F1B01C]" />
-                      <span>Free Webinar: <strong>30 Nov, 2026</strong> • 8:00 PM WAT</span>
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-[#F1B01C]" />
-                      <span>Masterclass: <strong>7 Live Sessions</strong> • Instructor-Led</span>
-                    </span>
                   </div>
                 </div>
               </div>
@@ -358,15 +346,9 @@ export default function App() {
             {/* 1. Mission, 2. Vision, 3. Goal */}
             <section id="mission-vision" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-                  Our Purpose & Commitments
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-3">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
                   Mission, Vision & Goal
                 </h2>
-                <p className="text-slate-600 text-sm mt-2">
-                  Building a future where everyone has the capabilities, tools, and access needed to thrive in the world of work.
-                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -406,150 +388,51 @@ export default function App() {
                     <p className="text-sm text-slate-700 leading-relaxed">
                       To help individuals become competitive, confident, and career-ready by bridging the gap between what employers expect and what job seekers can offer.
                     </p>
-                    <p className="text-xs text-slate-600 leading-relaxed pt-3 border-t border-slate-100">
-                      We aim to achieve this by providing accessible career education, practical tools, mentorship, employability programs, and pathways to real opportunities, helping people move from searching for jobs to becoming the kind of talent opportunities compete for.
-                    </p>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* 4. Core Values */}
+            {/* Core Values */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-                  What Guides Us
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-3">
-                  4. Core Values
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
+                  Core Values
                 </h2>
-                <p className="text-slate-600 text-sm mt-2">
-                  The principles that shape our programs, our culture, and our commitment to candidates.
-                </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* 1. Continuous Learning */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* 1. Opportunity and Access */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
                     1
                   </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">1. Continuous Learning</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We believe employability can be developed. We promote continuous learning, practical skill-building, and personal growth to prepare people for an evolving world of work.
-                  </p>
-                </div>
-
-                {/* 2. Opportunity and Access */}
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    2
-                  </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">2. Opportunity and Access</h3>
+                  <h3 className="text-lg font-extrabold text-slate-950">1. Opportunity and Access</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     We believe talent exists everywhere, but access to preparation and opportunity is not equal. We work to make career resources, guidance, and opportunities more accessible.
                   </p>
                 </div>
 
-                {/* 3. Practical Impact */}
+                {/* 2. Practical Impact */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    3
+                    2
                   </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">3. Practical Impact</h3>
+                  <h3 className="text-lg font-extrabold text-slate-950">2. Practical Impact</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     We prioritize actionable knowledge, useful tools, and real-world experiences that help people improve their employability and achieve measurable career progress.
                   </p>
                 </div>
 
-                {/* 4. Empowerment */}
+                {/* 3. Empowerment */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    4
+                    3
                   </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">4. Empowerment</h3>
+                  <h3 className="text-lg font-extrabold text-slate-950">3. Empowerment</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     We help people take ownership of their career journeys by building their confidence, strengthening their capabilities, and equipping them to make informed career decisions.
                   </p>
-                </div>
-
-                {/* 5. Integrity and Trust */}
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    5
-                  </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">5. Integrity and Trust</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We are committed to honesty, transparency, and responsible guidance. We strive to provide credible information and represent career opportunities truthfully.
-                  </p>
-                </div>
-
-                {/* 6. Growth and Excellence */}
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    6
-                  </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">6. Growth and Excellence</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We pursue high standards in our work and continuously improve our programs, resources, and services to create lasting value for job seekers and employers.
-                  </p>
-                </div>
-
-                {/* 7. Collaboration */}
-                <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors md:col-span-2 lg:col-span-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
-                    7
-                  </div>
-                  <h3 className="text-lg font-extrabold text-slate-950">7. Collaboration</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-4xl">
-                    We believe meaningful progress happens when job seekers, employers, educators, mentors, and organizations work together to build a stronger and more inclusive employment ecosystem.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* Our Guiding Philosophy */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-linear-to-br from-[#006C6D] to-[#004D4E] text-white rounded-3xl p-8 sm:p-14 shadow-xl border border-[#004D4E] space-y-8">
-                <div className="max-w-3xl space-y-4">
-                  <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider">
-                    <span>OUR GUIDING PHILOSOPHY</span>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-                    We don't just help people find jobs. We help them become ready for opportunities.
-                  </h2>
-
-                  <p className="text-base sm:text-lg text-[#D3EDE9] leading-relaxed">
-                    We believe that getting a job is only one part of a successful career. People also need the skills to perform, the confidence to compete, the knowledge to navigate the workplace, and the support to continue growing.
-                  </p>
-                </div>
-
-                <div className="pt-6 border-t border-[#006C6D]/80">
-                  <div className="text-xs uppercase font-extrabold tracking-widest text-[#F1B01C] font-mono mb-6">
-                    Our work follows a simple journey:
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {[
-                      { step: '1', title: 'Assess', desc: 'Diagnose current skills, strengths, and areas for strategic growth.' },
-                      { step: '2', title: 'Learn', desc: 'Acquire practical tools, market insights, and recruiter frameworks.' },
-                      { step: '3', title: 'Build', desc: 'Construct compelling resumes, LinkedIn presence, and interview assets.' },
-                      { step: '4', title: 'Connect', desc: 'Tap into hiring networks, unadvertised roles, and mentors.' },
-                      { step: '5', title: 'Grow', desc: 'Thrive on the job, deliver impact, and advance your long-term career.' },
-                    ].map((item) => (
-                      <div
-                        key={item.step}
-                        className="bg-[#003B3C] p-5 rounded-2xl border border-[#006C6D] text-left space-y-2 hover:border-[#F1B01C] transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-[#F1B01C] text-slate-950 font-black text-sm flex items-center justify-center font-mono">
-                          {item.step}
-                        </div>
-                        <h4 className="text-lg font-black text-white">{item.title}</h4>
-                        <p className="text-[11px] text-[#D3EDE9] leading-relaxed">{item.desc}</p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </section>
@@ -577,7 +460,7 @@ export default function App() {
                   },
                   {
                     q: 'Is the Masterclass self-paced or live?',
-                    a: 'The Masterclass is 100% LIVE and instructor-led across 7 live interactive sessions. It is not a recorded self-paced course.',
+                    a: 'The Masterclass is 100% live and instructor-led across 7 interactive sessions, and every session will be recorded. Participants who register but miss a live session will have access to the recording.',
                   },
                 ].map((faq, idx) => (
                   <div key={idx} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
