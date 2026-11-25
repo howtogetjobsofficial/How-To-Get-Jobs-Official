@@ -3,19 +3,11 @@ import {
   ArrowRight, 
   Calendar, 
   Clock, 
-  MapPin, 
   CheckCircle2, 
   ChevronRight, 
   Lock, 
-  Sparkles, 
   Users, 
-  Target, 
-  FileText, 
-  Briefcase, 
   Video, 
-  Layers, 
-  ShieldCheck,
-  HelpCircle,
   Play,
   CreditCard,
   ExternalLink,
@@ -23,7 +15,6 @@ import {
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { Logo } from './components/Logo';
 import { WebinarFlyer } from './components/WebinarFlyer';
 import { MasterclassFlyer } from './components/MasterclassFlyer';
 import { WebinarCountdown } from './components/WebinarCountdown';
@@ -245,28 +236,40 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Portal Card 2: Masterclass (Transparent background with crisp readable text) */}
-                <div className="bg-transparent text-slate-900 rounded-3xl p-8 border-2 border-[#006C6D] shadow-lg flex flex-col justify-between hover:shadow-xl transition-all">
-                  <div className="space-y-4">
+                {/* Portal Card 2: Masterclass (Fitted Background Image + Contrast Overlay) */}
+                <div className="relative overflow-hidden bg-[#004D4E] text-white rounded-3xl p-8 border-2 border-[#006C6D] shadow-lg flex flex-col justify-between hover:shadow-xl transition-all">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+                    style={{
+                      backgroundImage: `url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2000&q=80")`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="absolute inset-0 bg-linear-to-br from-[#004D4E]/92 via-[#003B3C]/88 to-slate-950/92 pointer-events-none"
+                    aria-hidden="true"
+                  />
+
+                  <div className="relative z-10 space-y-4">
                     <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider">
                       <span>7 LIVE SESSIONS</span>
                     </div>
 
-                    <h3 className="text-2xl font-black text-slate-950">
+                    <h3 className="text-2xl font-black text-white">
                       HOW TO GET JOBS MASTERCLASS
                     </h3>
 
-                    <div className="text-sm font-bold text-[#006C6D] flex items-center gap-2">
-                      <Lock className="w-4 h-4 text-[#006C6D]" />
+                    <div className="text-sm font-bold text-[#F1B01C] flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-[#F1B01C]" />
                       <span>Live Instructor-Led Masterclass</span>
                     </div>
 
-                    <p className="text-slate-600 text-sm leading-relaxed">
+                    <p className="text-[#D3EDE9] text-sm leading-relaxed">
                       A practical live Masterclass designed to help you improve your career positioning, job search, CV, LinkedIn, applications and interview preparation.
                     </p>
                   </div>
 
-                  <div className="pt-6 border-t border-[#006C6D]/25 mt-6">
+                  <div className="relative z-10 pt-6 border-t border-white/15 mt-6">
                     <button
                       onClick={() => handleNavigate('masterclass')}
                       className="w-full py-3.5 px-6 rounded-full font-black text-sm bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
@@ -427,28 +430,42 @@ export default function App() {
         {currentView === 'webinar' && (
           <div className="space-y-16 sm:space-y-24 animate-in fade-in duration-200">
             {/* Header Banner */}
-            <div className="bg-transparent text-slate-950 py-12 px-4 sm:px-6 lg:px-8 text-center space-y-4 border-b border-[#006C6D]/20">
-              <div className="inline-flex items-center gap-2 bg-[#DC2626] text-white px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider">
-                <Play className="w-3 h-3 fill-current" />
-                <span>100% FREE LIVE WEBINAR</span>
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-slate-950">
-                Applying for Jobs But Not Getting Hired?
-              </h1>
-              <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto">
-                A practical live online session for graduates, job seekers and early-career professionals who want to understand why their applications are not converting into interviews and what they can do differently.
-              </p>
+            <div className="relative overflow-hidden bg-[#004D4E] text-white py-14 px-4 sm:px-6 lg:px-8 text-center border-b border-[#006C6D]">
+              <div
+                className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+                style={{
+                  backgroundImage: `url("https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=2400&q=85")`,
+                }}
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-linear-to-b from-[#004D4E]/90 via-[#003B3C]/85 to-[#002E2F]/92 pointer-events-none"
+                aria-hidden="true"
+              />
 
-              {/* Exact Date Callout */}
-              <div className="inline-flex items-center gap-3 bg-transparent text-slate-800 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-[#006C6D]/40">
-                <Calendar className="w-4 h-4 text-[#006C6D]" />
-                <span>Date: <strong className="text-slate-950">30 Nov, 2026</strong></span>
-                <span>•</span>
-                <Clock className="w-4 h-4 text-[#006C6D]" />
-                <span>Time: <strong className="text-slate-950">8:00 PM WAT (GMT +1)</strong></span>
-                <span>•</span>
-                <Video className="w-4 h-4 text-[#006C6D]" />
-                <span>Virtual (Zoom & YouTube)</span>
+              <div className="relative z-10 max-w-4xl mx-auto space-y-4">
+                <div className="inline-flex items-center gap-2 bg-[#DC2626] text-white px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
+                  <Play className="w-3 h-3 fill-current" />
+                  <span>100% FREE LIVE WEBINAR</span>
+                </div>
+                <h1 className="text-3xl sm:text-5xl font-black text-white">
+                  Applying for Jobs But Not Getting Hired?
+                </h1>
+                <p className="text-base sm:text-lg text-[#D3EDE9] max-w-2xl mx-auto">
+                  A practical live online session for graduates, job seekers and early-career professionals who want to understand why their applications are not converting into interviews and what they can do differently.
+                </p>
+
+                {/* Exact Date Callout */}
+                <div className="inline-flex flex-wrap items-center justify-center gap-3 bg-white/10 backdrop-blur-xs text-white px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-white/25">
+                  <Calendar className="w-4 h-4 text-[#F1B01C]" />
+                  <span>Date: <strong>30 Nov, 2026</strong></span>
+                  <span>•</span>
+                  <Clock className="w-4 h-4 text-[#F1B01C]" />
+                  <span>Time: <strong>8:00 PM WAT (GMT +1)</strong></span>
+                  <span>•</span>
+                  <Video className="w-4 h-4 text-[#F1B01C]" />
+                  <span>Virtual (Zoom & YouTube)</span>
+                </div>
               </div>
             </div>
 
@@ -518,32 +535,46 @@ export default function App() {
 
             {/* Who Should Attend Dedicated Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-transparent text-slate-900 rounded-3xl p-8 sm:p-12 border-2 border-[#006C6D] shadow-lg">
-                <div className="text-center max-w-2xl mx-auto mb-8">
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950">
-                    Who Should Attend This Free Webinar
-                  </h3>
-                  <p className="text-slate-600 text-sm mt-1">
-                    Specifically designed for proactive job seekers ready for answers.
-                  </p>
-                </div>
+              <div className="relative overflow-hidden bg-[#004D4E] text-white rounded-3xl p-8 sm:p-12 border-2 border-[#006C6D] shadow-lg">
+                <div
+                  className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+                  style={{
+                    backgroundImage: `url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")`,
+                  }}
+                  aria-hidden="true"
+                />
+                <div
+                  className="absolute inset-0 bg-linear-to-br from-[#004D4E]/92 via-[#003B3C]/88 to-slate-950/92 pointer-events-none"
+                  aria-hidden="true"
+                />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-slate-600">
-                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
-                    <div className="font-bold text-slate-950 text-sm mb-1">Graduates & NYSC</div>
-                    <div>Seeking first professional roles and entering the corporate market.</div>
+                <div className="relative z-10">
+                  <div className="text-center max-w-2xl mx-auto mb-8">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                      Who Should Attend This Free Webinar
+                    </h3>
+                    <p className="text-[#D3EDE9] text-sm mt-1">
+                      Specifically designed for proactive job seekers ready for answers.
+                    </p>
                   </div>
-                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
-                    <div className="font-bold text-slate-950 text-sm mb-1">Struggling Job Seekers</div>
-                    <div>Sending dozens of resumes without receiving interview responses.</div>
-                  </div>
-                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
-                    <div className="font-bold text-slate-950 text-sm mb-1">Early-Career Pros</div>
-                    <div>Ready to move beyond entry-level pay into higher compensation.</div>
-                  </div>
-                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
-                    <div className="font-bold text-slate-950 text-sm mb-1">Career Switchers</div>
-                    <div>Transitioning into new industries or global remote opportunities.</div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#D3EDE9]">
+                    <div className="bg-white/10 backdrop-blur-xs p-5 rounded-2xl border border-white/20">
+                      <div className="font-bold text-white text-sm mb-1">Graduates & NYSC</div>
+                      <div>Seeking first professional roles and entering the corporate market.</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs p-5 rounded-2xl border border-white/20">
+                      <div className="font-bold text-white text-sm mb-1">Struggling Job Seekers</div>
+                      <div>Sending dozens of resumes without receiving interview responses.</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs p-5 rounded-2xl border border-white/20">
+                      <div className="font-bold text-white text-sm mb-1">Early-Career Pros</div>
+                      <div>Ready to move beyond entry-level pay into higher compensation.</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-xs p-5 rounded-2xl border border-white/20">
+                      <div className="font-bold text-white text-sm mb-1">Career Switchers</div>
+                      <div>Transitioning into new industries or global remote opportunities.</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -612,39 +643,53 @@ export default function App() {
         {currentView === 'masterclass' && (
           <div className="space-y-16 sm:space-y-24 animate-in fade-in duration-200">
             {/* Masterclass Hero Header */}
-            <div className="bg-transparent text-slate-950 py-14 px-4 sm:px-6 lg:px-8 text-center space-y-4 border-b border-[#006C6D]/20">
-              <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider">
-                <span>7 LIVE SESSIONS • INSTRUCTOR-LED</span>
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-slate-950">
-                HOW TO GET JOBS MASTERCLASS
-              </h1>
-              <p className="text-base sm:text-xl font-bold text-[#006C6D] max-w-2xl mx-auto">
-                From Applying randomly to applying strategically.
-              </p>
-              <p className="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed">
-                This practical career masterclass was designed to help you position yourself, find better opportunities and improve your chances of getting hired.
-              </p>
+            <div className="relative overflow-hidden bg-[#004D4E] text-white py-14 px-4 sm:px-6 lg:px-8 text-center border-b border-[#006C6D]">
+              <div
+                className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+                style={{
+                  backgroundImage: `url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2400&q=85")`,
+                }}
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-linear-to-b from-[#004D4E]/90 via-[#003B3C]/85 to-[#002E2F]/92 pointer-events-none"
+                aria-hidden="true"
+              />
 
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <a
-                  href={PAYSTACK_PAYMENT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-black text-sm sm:text-base bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 shadow-xl transition-all cursor-pointer active:scale-95"
-                >
-                  <CreditCard className="w-4 h-4 text-slate-950" />
-                  <span>Pay with Paystack (₦6,999)</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+              <div className="relative z-10 max-w-4xl mx-auto space-y-4">
+                <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
+                  <span>7 LIVE SESSIONS • INSTRUCTOR-LED</span>
+                </div>
+                <h1 className="text-3xl sm:text-5xl font-black text-white">
+                  HOW TO GET JOBS MASTERCLASS
+                </h1>
+                <p className="text-base sm:text-xl font-bold text-[#F1B01C] max-w-2xl mx-auto">
+                  From Applying randomly to applying strategically.
+                </p>
+                <p className="text-sm sm:text-base text-[#D3EDE9] max-w-2xl mx-auto leading-relaxed">
+                  This practical career masterclass was designed to help you position yourself, find better opportunities and improve your chances of getting hired.
+                </p>
 
-                <button
-                  onClick={() => setIsMasterclassModalOpen(true)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm bg-transparent hover:border-[#006C6D] text-[#004D4E] border border-[#006C6D]/40 transition-all cursor-pointer"
-                >
-                  <Lock className="w-4 h-4 text-[#006C6D]" />
-                  <span>Enrollment Guide & Syllabus</span>
-                </button>
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={PAYSTACK_PAYMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-black text-sm sm:text-base bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 shadow-xl transition-all cursor-pointer active:scale-95"
+                  >
+                    <CreditCard className="w-4 h-4 text-slate-950" />
+                    <span>Pay with Paystack (₦6,999)</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+
+                  <button
+                    onClick={() => setIsMasterclassModalOpen(true)}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm bg-white/10 hover:bg-white/20 text-white border border-white/25 backdrop-blur-xs transition-all cursor-pointer"
+                  >
+                    <Lock className="w-4 h-4 text-[#F1B01C]" />
+                    <span>Enrollment Guide & Syllabus</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -904,17 +949,29 @@ export default function App() {
 
         {/* Bottom Banner */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-transparent border-2 border-[#006C6D] text-slate-900 p-8 sm:p-14 shadow-xl text-center space-y-6">
-            <div className="max-w-2xl mx-auto space-y-4">
-              <span className="text-xs uppercase font-extrabold tracking-widest text-[#006C6D]">
+          <div className="relative overflow-hidden rounded-3xl bg-[#004D4E] border-2 border-[#006C6D] text-white p-8 sm:p-14 shadow-xl text-center">
+            <div
+              className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+              style={{
+                backgroundImage: `url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")`,
+              }}
+              aria-hidden="true"
+            />
+            <div
+              className="absolute inset-0 bg-linear-to-br from-[#004D4E]/92 via-[#003B3C]/88 to-slate-950/92 pointer-events-none"
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+              <span className="text-xs uppercase font-extrabold tracking-widest text-[#F1B01C]">
                 Take Action on Your Career Today
               </span>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
                 Become More Employable. Position Yourself Better. Get Hired.
               </h2>
 
-              <p className="text-slate-700 text-sm sm:text-base">
+              <p className="text-[#D3EDE9] text-sm sm:text-base">
                 Join the free live webinar on 30 Nov, 2026 at 8:00 PM WAT, or secure your place in the complete 7 Live Sessions Masterclass.
               </p>
 
@@ -930,7 +987,7 @@ export default function App() {
                   href={PAYSTACK_PAYMENT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm bg-[#004D4E] hover:bg-[#003B3C] text-white border border-[#D3EDE9]/40 transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-xs transition-all cursor-pointer"
                 >
                   <CreditCard className="w-4 h-4 text-[#F1B01C]" />
                   <span>Register for Masterclass</span>

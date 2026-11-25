@@ -26,7 +26,7 @@ export const WebinarFlyer: React.FC<WebinarFlyerProps> = ({
               className="w-full h-auto block object-contain"
             />
             {/* Prominent updated date sticker overlay reflecting the 30 Nov, 2026 schedule */}
-            <div className="bg-transparent border-t-2 border-[#006C6D] p-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#004D4E]">
+            <div className="bg-[#F4FAF9] border-t-2 border-[#006C6D] p-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#004D4E]">
               <div className="flex items-center gap-2 font-bold text-slate-950">
                 <Calendar className="w-4 h-4 text-[#006C6D]" />
                 <span>Updated Date: <strong>30 Nov, 2026</strong></span>

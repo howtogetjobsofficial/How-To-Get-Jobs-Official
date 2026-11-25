@@ -87,16 +87,29 @@ export const TestimonialSlider: React.FC = () => {
 
       {/* Main Carousel Container */}
       <div className="max-w-4xl mx-auto relative">
-        <div className="bg-transparent rounded-3xl border-2 border-[#006C6D] shadow-xl overflow-hidden text-slate-900 relative">
+        <div className="relative rounded-3xl border-2 border-[#006C6D] shadow-xl overflow-hidden text-white bg-[#004D4E]">
+          {/* Fitted Background Image + Contrast Overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center pointer-events-none select-none"
+            style={{
+              backgroundImage: `url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=80")`,
+            }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 bg-linear-to-br from-[#004D4E]/92 via-[#003B3C]/88 to-slate-950/92 pointer-events-none"
+            aria-hidden="true"
+          />
+
           {/* Decorative Corner Ambient Accent */}
           <div
-            className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#F1B01C]/10 blur-3xl pointer-events-none"
+            className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#F1B01C]/15 blur-3xl pointer-events-none"
             aria-hidden="true"
           />
 
           {/* Sliding Track */}
           <div
-            className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="relative z-10 flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
             {TESTIMONIALS.map((item) => (
@@ -105,30 +118,30 @@ export const TestimonialSlider: React.FC = () => {
                 className="w-full shrink-0 p-8 sm:p-12 md:p-14 flex flex-col justify-between space-y-8"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/40 flex items-center justify-center shrink-0">
-                    <Quote className="w-6 h-6 text-[#006C6D]" />
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20 flex items-center justify-center shrink-0">
+                    <Quote className="w-6 h-6 text-[#F1B01C]" />
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-transparent text-[#004D4E] px-3.5 py-1.5 rounded-full border border-[#006C6D]/40">
-                    <Briefcase className="w-3.5 h-3.5 text-[#006C6D]" />
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-white/10 backdrop-blur-xs text-[#D3EDE9] px-3.5 py-1.5 rounded-full border border-white/20">
+                    <Briefcase className="w-3.5 h-3.5 text-[#F1B01C]" />
                     <span>{item.focusArea}</span>
                   </span>
                 </div>
 
-                <blockquote className="text-lg sm:text-2xl font-medium text-slate-900 leading-relaxed">
+                <blockquote className="text-lg sm:text-2xl font-medium text-white leading-relaxed">
                   “{item.quote}”
                 </blockquote>
 
-                <div className="pt-6 border-t border-[#006C6D]/25 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-transparent border-2 border-[#F1B01C] text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-14 h-14 rounded-2xl bg-[#F1B01C] text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-xs">
                       {item.initials}
                     </div>
                     <div>
-                      <div className="text-xl font-black text-slate-950 tracking-tight">
+                      <div className="text-xl font-black text-white tracking-tight">
                         {item.name}
                       </div>
-                      <div className="text-sm font-semibold text-[#006C6D]">{item.role}</div>
+                      <div className="text-sm font-semibold text-[#D3EDE9]">{item.role}</div>
                     </div>
                   </div>
                 </div>

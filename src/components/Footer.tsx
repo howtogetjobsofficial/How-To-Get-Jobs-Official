@@ -125,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-white transition-colors cursor-pointer text-left flex items-center gap-2"
                 >
                   <Lock className="w-3.5 h-3.5 text-[#F1B01C]" />
-                  <span>Masterclass (7 Live Sessions)</span>
+                  <span>Masterclass</span>
                 </button>
               </li>
             </ul>
@@ -149,7 +149,7 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={onOpenWebinarModal}
                 className="w-full py-2.5 px-4 rounded-full text-xs font-black bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 transition-colors cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Register Free Webinar (30 Nov)</span>
+                <span>Register Free Webinar</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 

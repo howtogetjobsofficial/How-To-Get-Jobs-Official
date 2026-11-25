@@ -5,13 +5,6 @@ import {
   Calendar, 
   Lock, 
   Sparkles, 
-  Target, 
-  BookOpen, 
-  Briefcase, 
-  Users, 
-  HelpCircle, 
-  Mail,
-  ChevronRight,
   Compass,
   CheckCircle2,
   ExternalLink,
@@ -54,76 +47,27 @@ export const MENU_ITEMS: NavMenuVisualItem[] = [
   },
   {
     id: 'webinar',
-    label: 'Free Webinar (30 Nov)',
+    label: 'Free Webinar',
     tagline: 'Applying for Jobs But Not Getting Hired?',
-    badge: '100% Free Live',
-    badgeColor: 'bg-[#DC2626] text-white',
     icon: Calendar,
     bgImage: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=2400&q=85',
     themeColor: '#DC2626',
     targetView: 'webinar',
-    description: 'Free live session revealing the 6-second recruiter CV test, ATS filter secrets, and tactical job search methods.',
-    stats: { label: 'Date & Time', value: '30 Nov • 8 PM WAT' },
-    highlights: ['Interactive Live Q&A', 'Immediate Instant Pass & Calendar Invite']
+    description: 'Practical online session revealing the 6-second recruiter CV test, ATS filter secrets, and tactical job search methods.',
+    stats: { label: 'Format', value: 'Virtual Session' },
+    highlights: ['Interactive Q&A', 'Immediate Instant Pass & Calendar Invite']
   },
   {
     id: 'masterclass',
-    label: 'Masterclass (7 Live Sessions)',
+    label: 'Masterclass',
     tagline: 'From Applying Randomly to Applying Strategically',
-    badge: '₦6,999 • All 7 Sessions',
-    badgeColor: 'bg-[#F1B01C] text-slate-950',
     icon: Lock,
     bgImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2400&q=85',
     themeColor: '#006C6D',
     targetView: 'masterclass',
-    description: 'Intensive 7-part cohort covering CV architecture, LinkedIn optimization, ATS navigation, interview mastery and job systems.',
-    stats: { label: 'Tuition', value: '₦6,999' },
-    highlights: ['Direct Paystack payment checkout', '7 Live Instructor-Led Sessions + Templates']
-  },
-  {
-    id: 'mission-values',
-    label: 'Mission, Vision & Core Values',
-    tagline: 'Equipping Africa with Employability and Real Opportunity',
-    badge: 'Our Foundation',
-    badgeColor: 'bg-[#004D4E] text-[#D3EDE9]',
-    icon: Target,
-    bgImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2400&q=85',
-    themeColor: '#006C6D',
-    targetView: 'landing',
-    targetSection: 'mission-vision',
-    description: 'Africa’s leading career platform bridging what employers expect with what ambitious job seekers can offer.',
-    stats: { label: 'Pillars', value: '3 Core Values' },
-    highlights: ['Opportunity and Access & Practical Impact', 'Empowerment for Sustainable Career Growth']
-  },
-  {
-    id: 'programs',
-    label: 'Our Learning Paths',
-    tagline: 'Two Structured Pathways for Accelerated Career Success',
-    badge: 'Dual Portals',
-    badgeColor: 'bg-[#D3EDE9] text-[#006C6D]',
-    icon: BookOpen,
-    bgImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=2400&q=85',
-    themeColor: '#F1B01C',
-    targetView: 'landing',
-    targetSection: 'learning-paths',
-    description: 'Compare the complimentary tactical webinar with the intensive 7-session masterclass.',
-    stats: { label: 'Options', value: 'Webinar or Masterclass' },
-    highlights: ['Tailored for graduates & switchers', 'Direct enrollment pipelines']
-  },
-  {
-    id: 'faq',
-    label: 'FAQs',
-    tagline: 'Everything You Need to Know Before Joining',
-    badge: 'Candidate Help',
-    badgeColor: 'bg-slate-200 text-slate-800',
-    icon: HelpCircle,
-    bgImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=85',
-    themeColor: '#004D4E',
-    targetView: 'landing',
-    targetSection: 'faq-section',
-    description: 'Clear answers on schedule, payment via Paystack, replays, session materials, and who can benefit.',
-    stats: { label: 'Help Desk', value: 'Full Clarity' },
-    highlights: ['Payment via Card, Transfer or USSD', 'Certificate & Replay availability']
+    description: 'Intensive cohort covering CV architecture, LinkedIn optimization, ATS navigation, interview mastery and job systems.',
+    stats: { label: 'Format', value: 'Instructor-Led' },
+    highlights: ['Direct enrollment checkout', 'Interactive Instructor-Led Sessions + Templates']
   }
 ];
 
@@ -262,7 +206,7 @@ export const ImmersiveNavigationOverlay: React.FC<ImmersiveNavigationOverlayProp
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-black bg-[#F1B01C] text-slate-950 hover:bg-[#df9f12] transition-all cursor-pointer"
           >
             <CreditCard className="w-3.5 h-3.5 text-slate-950" />
-            <span>Pay Masterclass (₦6,999)</span>
+            <span>Register for Masterclass</span>
             <ExternalLink className="w-3 h-3 text-slate-950" />
           </a>
 
@@ -310,7 +254,7 @@ export const ImmersiveNavigationOverlay: React.FC<ImmersiveNavigationOverlayProp
                       className={`w-full text-left p-3.5 sm:p-4 rounded-2xl transition-all duration-300 flex items-center justify-between cursor-pointer border ${
                         isActive
                           ? 'bg-white/15 border-white/30 backdrop-blur-md shadow-lg translate-x-2'
-                          : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10'
+                          : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                       }`}
                     >
                       <div className="flex items-center gap-3.5">
@@ -437,11 +381,11 @@ export const ImmersiveNavigationOverlay: React.FC<ImmersiveNavigationOverlayProp
       <div className="relative z-10 w-full px-4 sm:px-8 py-3.5 bg-slate-950/90 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-2">
         <div className="flex items-center gap-4">
           <span className="text-[#D3EDE9]">
-            Next Live Webinar: <strong className="text-white">30 Nov, 2026 • 8:00 PM WAT</strong>
+            <strong className="text-white">Free Webinar</strong> • Virtual Session
           </span>
           <span>•</span>
           <span className="text-[#D3EDE9]">
-            Masterclass: <strong className="text-white">₦6,999 (7 Live Sessions)</strong>
+            <strong className="text-white">Masterclass</strong> • Instructor-Led
           </span>
         </div>
 

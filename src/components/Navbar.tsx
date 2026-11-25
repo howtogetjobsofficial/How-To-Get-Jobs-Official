@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#F1B01C] animate-pulse"></span>
             <span className="font-medium text-xs">
-              Next Free Live Webinar: <strong className="text-white">30 Nov, 2026 • 8:00 PM WAT</strong>
+              Free Webinar: <strong className="text-white">Applying for Jobs But Not Getting Hired?</strong>
             </span>
           </div>
 
@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onOpenWebinarModal}
               className="text-[#F1B01C] hover:underline font-bold cursor-pointer"
             >
-              Register Free Spot (30 Nov) →
+              Register Free Webinar →
             </button>
           </div>
         </div>
@@ -168,9 +168,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}
                 >
                   <span>Free Webinar</span>
-                  <span className="text-[10px] bg-[#DC2626] text-white px-2 py-0.5 rounded-full font-black">
-                    FREE
-                  </span>
+                </button>
+
+                <button
+                  onClick={() => handleNav('masterclass')}
+                  className={`w-full text-left py-2 px-3 rounded-full text-xs font-bold flex items-center justify-between ${
+                    currentView === 'masterclass' ? 'bg-[#006C6D] text-white' : 'text-slate-800'
+                  }`}
+                >
+                  <span>Masterclass</span>
                 </button>
 
                 <button
