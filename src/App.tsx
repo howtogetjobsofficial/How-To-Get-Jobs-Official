@@ -933,7 +933,7 @@ export default function App() {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm bg-[#004D4E] hover:bg-[#003B3C] text-white border border-[#D3EDE9]/40 transition-all cursor-pointer"
                 >
                   <CreditCard className="w-4 h-4 text-[#F1B01C]" />
-                  <span>Pay Masterclass on Paystack (₦6,999)</span>
+                  <span>Register for Masterclass</span>
                   <ExternalLink className="w-3.5 h-3.5 text-[#F1B01C]" />
                 </a>
               </div>

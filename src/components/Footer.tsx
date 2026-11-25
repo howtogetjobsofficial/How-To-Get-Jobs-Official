@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="bg-[#004D4E] text-[#D3EDE9] pt-16 pb-12 border-t border-[#006C6D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#006C6D]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#006C6D]">
           {/* Brand Column - Standalone Logo + Statement + Social Links */}
           <div className="space-y-4">
             <Logo variant="white" />
@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-white transition-colors cursor-pointer text-left flex items-center gap-2"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[#F1B01C]" />
-                  <span>Free Webinar (30 Nov, 2026)</span>
+                  <span>Free Webinar</span>
                 </button>
               </li>
               <li>
@@ -128,30 +128,6 @@ export const Footer: React.FC<FooterProps> = ({
                   <span>Masterclass (7 Live Sessions)</span>
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('landing')}
-                  className="hover:text-white transition-colors cursor-pointer text-left text-[#D3EDE9]/75"
-                >
-                  Home / Overview Landing
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Masterclass Curriculum Session Listing */}
-          <div className="space-y-3">
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider font-mono">
-              Sessions
-            </h4>
-            <ul className="space-y-1.5 text-xs text-[#D3EDE9]">
-              <li>Session 1: Career Positioning</li>
-              <li>Session 2: Job Search Strategy</li>
-              <li>Session 3: Build a CV Recruiters Can Understand</li>
-              <li>Session 4: Position Your LinkedIn Profile</li>
-              <li>Session 5: Write Stronger Applications</li>
-              <li>Session 6: Prepare for Interviews</li>
-              <li>Session 7: Build Your Personal Job-Search System</li>
             </ul>
           </div>
 
@@ -184,7 +160,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="w-full py-2.5 px-4 rounded-full text-xs font-black bg-[#006C6D] hover:bg-[#005a5b] text-white transition-colors cursor-pointer flex items-center justify-center gap-2 border border-[#D3EDE9]/30"
               >
                 <CreditCard className="w-3.5 h-3.5 text-[#F1B01C]" />
-                <span>Pay Masterclass on Paystack (₦6,999)</span>
+                <span>Register for Masterclass</span>
                 <ExternalLink className="w-3 h-3 text-[#F1B01C]" />
               </a>
             </div>
