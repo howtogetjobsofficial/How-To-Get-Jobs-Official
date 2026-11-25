@@ -27,7 +27,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
 
   // Approximate currency equivalents based on official price of ₦6,999
   const currencyEquivalents = {
-    NGN: { symbol: '₦', value: '6,999', label: 'Official Programme Price' },
+    NGN: { symbol: '₦', value: '6,999', label: 'Official Program Price' },
     USD: { symbol: '$', value: '4.50', label: 'Approx. USD' },
     GBP: { symbol: '£', value: '3.50', label: 'Approx. GBP' },
     EUR: { symbol: '€', value: '4.10', label: 'Approx. EUR' },
@@ -109,7 +109,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
 
             <div className="p-6">
               {/* Direct Instant Paystack Button (Top CTA) */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-5 text-center">
+              <div className="bg-transparent border border-slate-200 rounded-2xl p-4 mb-5 text-center">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
                   <div className="text-left">
                     <div className="text-xs uppercase font-extrabold tracking-wider text-[#006C6D]">
@@ -168,33 +168,33 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
                   )}
 
                   <p className="text-[10px] text-slate-500 mt-2 italic leading-tight">
-                    “International currency equivalents are approximate and may change with exchange rates. The official programme price is ₦6,999.”
+                    “International currency equivalents are approximate and may change with exchange rates. The official program price is ₦6,999.”
                   </p>
                 </div>
               </div>
 
               {/* Masterclass Flyer Preview Card & Audience Badges */}
-              <div className="mb-5 bg-linear-to-r from-[#004D4E] to-[#006C6D] p-3.5 rounded-2xl text-white flex items-center gap-3.5">
+              <div className="mb-5 bg-transparent border border-[#006C6D]/40 p-3.5 rounded-2xl text-slate-900 flex items-center gap-3.5">
                 <img
                   src="/assets/aistudio/image_70face9d.png"
                   alt="How to Get Jobs Masterclass Flyer"
                   className="w-16 h-20 object-cover rounded-lg border border-[#F1B01C] shrink-0 shadow-sm"
                 />
                 <div className="space-y-1 text-xs">
-                  <div className="text-[10px] font-black uppercase tracking-wider text-[#F1B01C]">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#006C6D]">
                     From Applying Randomly to Applying Strategically
                   </div>
-                  <div className="font-extrabold text-white text-sm">
+                  <div className="font-extrabold text-slate-950 text-sm">
                     Inside the Masterclass
                   </div>
-                  <div className="text-[11px] text-[#D3EDE9]">
+                  <div className="text-[11px] text-slate-600">
                     For: Graduates • Job seekers • Career switchers • Early career professionals
                   </div>
                 </div>
               </div>
 
               {/* 7 Live Sessions Summary - Exact 7 Pointers from Flyer */}
-              <div className="space-y-2 text-xs text-slate-800 mb-5 bg-[#D3EDE9]/30 p-4 rounded-2xl border border-[#006C6D]/20">
+              <div className="space-y-2 text-xs text-slate-800 mb-5 bg-transparent p-4 rounded-2xl border border-[#006C6D]/25">
                 <div className="font-black text-[#004D4E] flex items-center justify-between">
                   <span>Inside the Masterclass (7 Live Sessions):</span>
                   <span className="text-[11px] text-[#006C6D] font-bold">100% Live</span>
@@ -300,7 +300,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
                 </div>
 
                 {/* Paystack Trust & Security Badges */}
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 mt-2 space-y-1.5 text-center">
+                <div className="bg-transparent p-3 rounded-xl border border-slate-200 mt-2 space-y-1.5 text-center">
                   <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
                     <ShieldCheck className="w-4 h-4 text-[#006C6D]" />
                     <span>Secured by Paystack (256-Bit SSL Encryption)</span>
@@ -325,7 +325,7 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
           </div>
         ) : (
           <div className="p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-[#D3EDE9] text-[#006C6D] rounded-full flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 bg-transparent border border-[#006C6D]/30 text-[#006C6D] rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-9 h-9" />
             </div>
 
@@ -336,8 +336,8 @@ export const MasterclassEnrollModal: React.FC<MasterclassEnrollModalProps> = ({
               A secure Paystack payment window has opened for <strong>{formData.fullName}</strong>. Once completed, your admission pass and calendar schedule will be confirmed for <strong>{formData.email}</strong>.
             </p>
 
-            <div className="my-5 p-4 rounded-2xl bg-[#006C6D] text-white text-left text-xs space-y-2.5">
-              <div className="font-bold text-[#F1B01C] text-sm flex items-center gap-2">
+            <div className="my-5 p-4 rounded-2xl bg-transparent border-2 border-[#006C6D] text-slate-800 text-left text-xs space-y-2.5">
+              <div className="font-bold text-[#006C6D] text-sm flex items-center gap-2">
                 <Lock className="w-4 h-4" />
                 <span>Paystack Payment Instructions:</span>
               </div>

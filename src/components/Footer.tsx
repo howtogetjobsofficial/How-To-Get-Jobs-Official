@@ -56,6 +56,15 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
+  {
+    name: 'TikTok',
+    href: 'https://www.tiktok.com/@howtogetjobs',
+    icon: (
+      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+      </svg>
+    ),
+  },
 ];
 
 export const Footer: React.FC<FooterProps> = ({
@@ -65,8 +74,8 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="bg-[#004D4E] text-[#D3EDE9] pt-16 pb-12 border-t border-[#006C6D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#006C6D]">
-          {/* Brand Column - Standalone Logo + Social Links */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#006C6D]">
+          {/* Brand Column - Standalone Logo + Statement + Social Links */}
           <div className="space-y-4">
             <Logo variant="white" />
             <p className="text-xs sm:text-sm text-[#D3EDE9] leading-relaxed max-w-sm">
@@ -95,10 +104,10 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Quick Portals: The 2 Main Programmes */}
+          {/* Quick Portals: The 2 Main Programs */}
           <div className="space-y-3">
             <h4 className="text-white text-xs font-bold uppercase tracking-wider font-mono">
-              Programmes
+              Programs
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
@@ -127,6 +136,22 @@ export const Footer: React.FC<FooterProps> = ({
                   Home / Overview Landing
                 </button>
               </li>
+            </ul>
+          </div>
+
+          {/* Masterclass Curriculum Session Listing */}
+          <div className="space-y-3">
+            <h4 className="text-white text-xs font-bold uppercase tracking-wider font-mono">
+              Sessions
+            </h4>
+            <ul className="space-y-1.5 text-xs text-[#D3EDE9]">
+              <li>Session 1: Career Positioning</li>
+              <li>Session 2: Job Search Strategy</li>
+              <li>Session 3: Build a CV Recruiters Can Understand</li>
+              <li>Session 4: Position Your LinkedIn Profile</li>
+              <li>Session 5: Write Stronger Applications</li>
+              <li>Session 6: Prepare for Interviews</li>
+              <li>Session 7: Build Your Personal Job-Search System</li>
             </ul>
           </div>
 
@@ -167,16 +192,10 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#D3EDE9]/80 gap-3">
+        <div className="pt-8 flex items-center justify-center sm:justify-start text-xs text-[#D3EDE9]/80">
           <div>
             © {new Date().getFullYear()} How to Get Jobs. All rights reserved.
           </div>
-          <a
-            href="mailto:howtogetjobsofficial@gmail.com"
-            className="text-[#D3EDE9] hover:text-[#F1B01C] transition-colors"
-          >
-            howtogetjobsofficial@gmail.com
-          </a>
         </div>
       </div>
     </footer>

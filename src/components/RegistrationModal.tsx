@@ -308,7 +308,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         ) : (
           /* Confirmation Screen */
           <div className="p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-[#D3EDE9] text-[#006C6D] rounded-full flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 bg-transparent border border-[#006C6D]/30 text-[#006C6D] rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-9 h-9" />
             </div>
 
@@ -320,36 +320,36 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               An invitation has been dispatched to <strong>{formData.email}</strong>.
             </p>
 
-            <div className="my-5 p-4 rounded-2xl bg-[#006C6D] text-white text-left shadow-md border border-[#004D4E]">
-              <div className="flex justify-between items-center pb-2 mb-2 border-b border-[#004D4E]">
-                <span className="text-[10px] uppercase font-mono text-[#D3EDE9]">Pass ID:</span>
-                <span className="text-sm font-mono font-bold text-[#F1B01C]">{ticketId}</span>
+            <div className="my-5 p-4 rounded-2xl bg-transparent text-slate-800 text-left shadow-sm border-2 border-[#006C6D]">
+              <div className="flex justify-between items-center pb-2 mb-2 border-b border-[#006C6D]/25">
+                <span className="text-[10px] uppercase font-mono text-[#006C6D]">Pass ID:</span>
+                <span className="text-sm font-mono font-bold text-[#004D4E]">{ticketId}</span>
               </div>
-              <div className="space-y-1 text-xs text-[#D3EDE9]">
+              <div className="space-y-1 text-xs text-slate-700">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-3.5 h-3.5 text-white" />
-                  <span className="text-white font-medium">30 Nov, 2026</span>
+                  <Calendar className="w-3.5 h-3.5 text-[#006C6D]" />
+                  <span className="text-slate-900 font-medium">30 Nov, 2026</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-white" />
-                  <span className="text-white font-medium">8:00 PM WAT (GMT +1)</span>
+                  <Clock className="w-3.5 h-3.5 text-[#006C6D]" />
+                  <span className="text-slate-900 font-medium">8:00 PM WAT (GMT +1)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Video className="w-3.5 h-3.5 text-white" />
-                  <span className="text-white font-medium">Virtual (Zoom & YouTube)</span>
+                  <Video className="w-3.5 h-3.5 text-[#006C6D]" />
+                  <span className="text-slate-900 font-medium">Virtual (Zoom & YouTube)</span>
                 </div>
               </div>
             </div>
 
             {/* Google Sheets Explicit Save Confirmation / Sync Status */}
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2.5">
+            <div className="p-4 rounded-2xl bg-transparent border border-slate-200 text-left space-y-2.5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-xs font-extrabold text-slate-900">
                   <FileSpreadsheet className="w-4 h-4 text-[#006C6D]" />
                   <span>Google Sheets Sync</span>
                 </div>
                 {rowSynced && (
-                  <span className="text-[10px] font-black uppercase bg-[#D3EDE9] text-[#004D4E] px-2.5 py-0.5 rounded-full">
+                  <span className="text-[10px] font-black uppercase bg-transparent border border-[#006C6D]/40 text-[#004D4E] px-2.5 py-0.5 rounded-full">
                     Saved to Sheet
                   </span>
                 )}

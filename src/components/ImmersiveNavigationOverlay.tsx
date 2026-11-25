@@ -96,7 +96,7 @@ export const MENU_ITEMS: NavMenuVisualItem[] = [
     highlights: ['Opportunity and Access & Practical Impact', 'Empowerment for Sustainable Career Growth']
   },
   {
-    id: 'programmes',
+    id: 'programs',
     label: 'Our Learning Paths',
     tagline: 'Two Structured Pathways for Accelerated Career Success',
     badge: 'Dual Portals',
@@ -112,7 +112,7 @@ export const MENU_ITEMS: NavMenuVisualItem[] = [
   },
   {
     id: 'faq',
-    label: 'Frequently Asked Questions',
+    label: 'FAQs',
     tagline: 'Everything You Need to Know Before Joining',
     badge: 'Candidate Help',
     badgeColor: 'bg-slate-200 text-slate-800',

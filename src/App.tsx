@@ -54,7 +54,7 @@ export default function App() {
   const [pricingCurrency, setPricingCurrency] = useState<'NGN' | 'USD' | 'GBP' | 'EUR' | 'GHS' | 'KES' | 'ZAR'>('NGN');
 
   const currencyRates = {
-    NGN: { symbol: '₦', value: '6,999', note: 'Official Programme Price' },
+    NGN: { symbol: '₦', value: '6,999', note: 'Official Program Price' },
     USD: { symbol: '$', value: '4.50', note: 'Approx. USD equivalent' },
     GBP: { symbol: '£', value: '3.50', note: 'Approx. GBP equivalent' },
     EUR: { symbol: '€', value: '4.10', note: 'Approx. EUR equivalent' },
@@ -204,18 +204,12 @@ export default function App() {
               </div>
             </section>
 
-            {/* Two Main Programme Portals Section */}
+            {/* Two Main Program Portals Section */}
             <section id="learning-paths" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-                  Choose Your Learning Path
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-3">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
                   Two Structured Ways to Accelerate Your Career
                 </h2>
-                <p className="text-slate-600 text-sm sm:text-base mt-2">
-                  Select between the complimentary tactical webinar on 30 Nov or the intensive 7 Live Sessions Masterclass.
-                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -238,24 +232,9 @@ export default function App() {
                     <p className="text-slate-600 text-sm leading-relaxed">
                       "Applying for Jobs But Not Getting Hired?" A practical live session revealing why good candidates get screened out and how to fix your CV, LinkedIn, and search strategy.
                     </p>
-
-                    <div className="space-y-2 pt-2 text-xs text-slate-700">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#006C6D] shrink-0" />
-                        <span>Why qualified applicants get rejected by ATS filters</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#006C6D] shrink-0" />
-                        <span>The 6-second recruiter resume evaluation framework</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#006C6D] shrink-0" />
-                        <span>Includes live Q&A and instant downloadable pass</span>
-                      </div>
-                    </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-100 mt-6 space-y-2">
+                  <div className="pt-6 border-t border-slate-100 mt-6">
                     <button
                       onClick={() => handleNavigate('webinar')}
                       className="w-full py-3.5 px-6 rounded-full font-black text-sm bg-[#006C6D] hover:bg-[#004D4E] text-white transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
@@ -263,78 +242,38 @@ export default function App() {
                       <span>Go to Free Webinar Portal</span>
                       <ArrowRight className="w-4 h-4 text-[#F1B01C]" />
                     </button>
-                    <button
-                      onClick={() => setIsWebinarModalOpen(true)}
-                      className="w-full py-2 text-xs font-bold text-[#006C6D] hover:underline cursor-pointer text-center"
-                    >
-                      Instant 1-Click Registration (30 Nov)
-                    </button>
                   </div>
                 </div>
 
-                {/* Portal Card 2: Masterclass (No price tag in badge) */}
-                <div className="bg-[#004D4E] text-white rounded-3xl p-8 border-2 border-[#006C6D] shadow-lg flex flex-col justify-between hover:shadow-xl transition-all">
+                {/* Portal Card 2: Masterclass (Transparent background with crisp readable text) */}
+                <div className="bg-transparent text-slate-900 rounded-3xl p-8 border-2 border-[#006C6D] shadow-lg flex flex-col justify-between hover:shadow-xl transition-all">
                   <div className="space-y-4">
                     <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider">
                       <span>7 LIVE SESSIONS</span>
                     </div>
 
-                    <h3 className="text-2xl font-black text-white">
+                    <h3 className="text-2xl font-black text-slate-950">
                       HOW TO GET JOBS MASTERCLASS
                     </h3>
 
-                    <div className="text-sm font-bold text-[#F1B01C] flex items-center gap-2">
-                      <Lock className="w-4 h-4" />
+                    <div className="text-sm font-bold text-[#006C6D] flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-[#006C6D]" />
                       <span>Live Instructor-Led Masterclass</span>
                     </div>
 
-                    <p className="text-[#D3EDE9] text-sm leading-relaxed">
+                    <p className="text-slate-600 text-sm leading-relaxed">
                       A practical live Masterclass designed to help you improve your career positioning, job search, CV, LinkedIn, applications and interview preparation.
                     </p>
-
-                    <div className="space-y-2 pt-2 text-xs text-[#D3EDE9]">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#F1B01C] shrink-0" />
-                        <span>All 7 live interactive curriculum sessions</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#F1B01C] shrink-0" />
-                        <span>Direct line-by-line CV and application teardowns</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#F1B01C] shrink-0" />
-                        <span>Official programme tuition: ₦6,999</span>
-                      </div>
-                    </div>
                   </div>
 
-                  <div className="pt-6 border-t border-[#006C6D] mt-6 space-y-2">
+                  <div className="pt-6 border-t border-[#006C6D]/25 mt-6">
                     <button
                       onClick={() => handleNavigate('masterclass')}
                       className="w-full py-3.5 px-6 rounded-full font-black text-sm bg-[#F1B01C] hover:bg-[#d99c12] text-slate-950 transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
                     >
-                      <span>Explore Masterclass Programme</span>
+                      <span>Explore Masterclass Program</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <div className="flex items-center justify-center gap-4 pt-1">
-                      <a
-                        href={PAYSTACK_PAYMENT_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-black text-[#F1B01C] hover:underline cursor-pointer inline-flex items-center gap-1"
-                      >
-                        <CreditCard className="w-3.5 h-3.5" />
-                        <span>Pay ₦6,999 on Paystack</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                      <span className="text-xs text-[#D3EDE9]/40">•</span>
-                      <button
-                        onClick={() => setIsMasterclassModalOpen(true)}
-                        className="text-xs font-bold text-[#D3EDE9] hover:underline cursor-pointer"
-                      >
-                        Enrollment Details
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -355,12 +294,12 @@ export default function App() {
                 {/* 1. Mission */}
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg">
+                    <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-bold text-lg">
                       01
                     </div>
                     <h3 className="text-2xl font-black text-slate-950">1. Mission</h3>
                     <p className="text-sm text-slate-700 leading-relaxed">
-                      To equip people across Africa with the skills, tools, knowledge, mentorship, and opportunities they need to become job-ready, access meaningful employment, and build sustainable careers.
+                      To equip graduates, job seekers, early-career professionals and career switchers across Africa with the skills, tools, knowledge, mentorship, and opportunities they need to become job-ready, access meaningful employment, and build sustainable careers.
                     </p>
                   </div>
                 </div>
@@ -368,7 +307,7 @@ export default function App() {
                 {/* 2. Vision */}
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg">
+                    <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-bold text-lg">
                       02
                     </div>
                     <h3 className="text-2xl font-black text-slate-950">2. Vision</h3>
@@ -381,7 +320,7 @@ export default function App() {
                 {/* 3. Goal */}
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold text-lg">
+                    <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-bold text-lg">
                       03
                     </div>
                     <h3 className="text-2xl font-black text-slate-950">3. Goal</h3>
@@ -404,7 +343,7 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* 1. Opportunity and Access */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
+                  <div className="w-10 h-10 rounded-xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
                     1
                   </div>
                   <h3 className="text-lg font-extrabold text-slate-950">1. Opportunity and Access</h3>
@@ -415,23 +354,23 @@ export default function App() {
 
                 {/* 2. Practical Impact */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
+                  <div className="w-10 h-10 rounded-xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
                     2
                   </div>
                   <h3 className="text-lg font-extrabold text-slate-950">2. Practical Impact</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We prioritize actionable knowledge, useful tools, and real-world experiences that help people improve their employability and achieve measurable career progress.
+                    We prioritize actionable knowledge, useful tools, and real-world experiences that help graduates, job seekers, early-career professionals and career switchers improve their employability and achieve measurable career progress.
                   </p>
                 </div>
 
                 {/* 3. Empowerment */}
                 <div className="bg-white p-7 rounded-3xl border border-slate-200 shadow-xs space-y-3 hover:border-[#006C6D] transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
+                  <div className="w-10 h-10 rounded-xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center font-mono font-bold text-sm">
                     3
                   </div>
                   <h3 className="text-lg font-extrabold text-slate-950">3. Empowerment</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We help people take ownership of their career journeys by building their confidence, strengthening their capabilities, and equipping them to make informed career decisions.
+                    We help graduates, job seekers, early-career professionals and career switchers take ownership of their career journeys by building their confidence, strengthening their capabilities, and equipping them to make informed career decisions.
                   </p>
                 </div>
               </div>
@@ -440,11 +379,8 @@ export default function App() {
             {/* General FAQ Section */}
             <section id="faq-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
               <div className="text-center mb-8">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3 py-1 rounded-full">
-                  Frequently Asked Questions
-                </span>
-                <h2 className="text-3xl font-extrabold text-slate-950 mt-2">
-                  Common Questions
+                <h2 className="text-3xl font-extrabold text-slate-950">
+                  FAQs
                 </h2>
               </div>
 
@@ -452,7 +388,7 @@ export default function App() {
                 {[
                   {
                     q: 'How do I choose between the Free Webinar and the Masterclass?',
-                    a: 'The Free Webinar on 30 Nov is an intensive 2-hour live session covering the core mistakes applicants make and how recruiters screen candidates. The Masterclass is the full 7 Live Sessions programme with hands-on CV revamps, interview prep, and direct instructor coaching for ₦6,999.',
+                    a: 'The Free Webinar on 30 Nov is an intensive 2-hour live session covering the core mistakes applicants make and how recruiters screen candidates. The Masterclass is the full 7 Live Sessions program with hands-on CV revamps, interview prep, and direct instructor coaching for ₦6,999.',
                   },
                   {
                     q: 'What date is the Free Webinar?',
@@ -491,27 +427,27 @@ export default function App() {
         {currentView === 'webinar' && (
           <div className="space-y-16 sm:space-y-24 animate-in fade-in duration-200">
             {/* Header Banner */}
-            <div className="bg-[#006C6D] text-white py-12 px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div className="bg-transparent text-slate-950 py-12 px-4 sm:px-6 lg:px-8 text-center space-y-4 border-b border-[#006C6D]/20">
               <div className="inline-flex items-center gap-2 bg-[#DC2626] text-white px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider">
                 <Play className="w-3 h-3 fill-current" />
                 <span>100% FREE LIVE WEBINAR</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-white">
+              <h1 className="text-3xl sm:text-5xl font-black text-slate-950">
                 Applying for Jobs But Not Getting Hired?
               </h1>
-              <p className="text-base sm:text-lg text-[#D3EDE9] max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto">
                 A practical live online session for graduates, job seekers and early-career professionals who want to understand why their applications are not converting into interviews and what they can do differently.
               </p>
 
               {/* Exact Date Callout */}
-              <div className="inline-flex items-center gap-3 bg-[#004D4E] text-[#D3EDE9] px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-[#006C6D]">
-                <Calendar className="w-4 h-4 text-[#F1B01C]" />
-                <span>Date: <strong className="text-white">30 Nov, 2026</strong></span>
+              <div className="inline-flex items-center gap-3 bg-transparent text-slate-800 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-[#006C6D]/40">
+                <Calendar className="w-4 h-4 text-[#006C6D]" />
+                <span>Date: <strong className="text-slate-950">30 Nov, 2026</strong></span>
                 <span>•</span>
-                <Clock className="w-4 h-4 text-[#F1B01C]" />
-                <span>Time: <strong className="text-white">8:00 PM WAT (GMT +1)</strong></span>
+                <Clock className="w-4 h-4 text-[#006C6D]" />
+                <span>Time: <strong className="text-slate-950">8:00 PM WAT (GMT +1)</strong></span>
                 <span>•</span>
-                <Video className="w-4 h-4 text-[#F1B01C]" />
+                <Video className="w-4 h-4 text-[#006C6D]" />
                 <span>Virtual (Zoom & YouTube)</span>
               </div>
             </div>
@@ -525,7 +461,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 <div className="lg:col-span-6 space-y-6">
-                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
+                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-transparent border border-[#006C6D]/30 px-3.5 py-1.5 rounded-full inline-block">
                     Official Session Flier
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950">
@@ -567,7 +503,7 @@ export default function App() {
                     </button>
                     <button
                       onClick={() => handleNavigate('masterclass')}
-                      className="px-6 py-4 rounded-full font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer text-center"
+                      className="px-6 py-4 rounded-full font-bold text-xs bg-transparent border border-slate-300 hover:border-[#006C6D] text-slate-800 transition-colors cursor-pointer text-center"
                     >
                       Looking for the Masterclass? →
                     </button>
@@ -582,31 +518,31 @@ export default function App() {
 
             {/* Who Should Attend Dedicated Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-[#004D4E] text-white rounded-3xl p-8 sm:p-12 shadow-lg">
+              <div className="bg-transparent text-slate-900 rounded-3xl p-8 sm:p-12 border-2 border-[#006C6D] shadow-lg">
                 <div className="text-center max-w-2xl mx-auto mb-8">
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950">
                     Who Should Attend This Free Webinar
                   </h3>
-                  <p className="text-[#D3EDE9] text-sm mt-1">
+                  <p className="text-slate-600 text-sm mt-1">
                     Specifically designed for proactive job seekers ready for answers.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#D3EDE9]">
-                  <div className="bg-[#003B3C] p-5 rounded-2xl border border-[#006C6D]">
-                    <div className="font-bold text-white text-sm mb-1">Graduates & NYSC</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-slate-600">
+                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
+                    <div className="font-bold text-slate-950 text-sm mb-1">Graduates & NYSC</div>
                     <div>Seeking first professional roles and entering the corporate market.</div>
                   </div>
-                  <div className="bg-[#003B3C] p-5 rounded-2xl border border-[#006C6D]">
-                    <div className="font-bold text-white text-sm mb-1">Struggling Job Seekers</div>
+                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
+                    <div className="font-bold text-slate-950 text-sm mb-1">Struggling Job Seekers</div>
                     <div>Sending dozens of resumes without receiving interview responses.</div>
                   </div>
-                  <div className="bg-[#003B3C] p-5 rounded-2xl border border-[#006C6D]">
-                    <div className="font-bold text-white text-sm mb-1">Early-Career Pros</div>
+                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
+                    <div className="font-bold text-slate-950 text-sm mb-1">Early-Career Pros</div>
                     <div>Ready to move beyond entry-level pay into higher compensation.</div>
                   </div>
-                  <div className="bg-[#003B3C] p-5 rounded-2xl border border-[#006C6D]">
-                    <div className="font-bold text-white text-sm mb-1">Career Switchers</div>
+                  <div className="bg-transparent p-5 rounded-2xl border border-[#006C6D]/40">
+                    <div className="font-bold text-slate-950 text-sm mb-1">Career Switchers</div>
                     <div>Transitioning into new industries or global remote opportunities.</div>
                   </div>
                 </div>
@@ -617,7 +553,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#006C6D]/25 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center shrink-0">
                     <FileSpreadsheet className="w-6 h-6" />
                   </div>
                   <div className="space-y-1">
@@ -676,17 +612,17 @@ export default function App() {
         {currentView === 'masterclass' && (
           <div className="space-y-16 sm:space-y-24 animate-in fade-in duration-200">
             {/* Masterclass Hero Header */}
-            <div className="bg-[#004D4E] text-white py-14 px-4 sm:px-6 lg:px-8 text-center space-y-4 border-b border-[#006C6D]">
+            <div className="bg-transparent text-slate-950 py-14 px-4 sm:px-6 lg:px-8 text-center space-y-4 border-b border-[#006C6D]/20">
               <div className="inline-flex items-center gap-2 bg-[#F1B01C] text-slate-950 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider">
                 <span>7 LIVE SESSIONS • INSTRUCTOR-LED</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-white">
+              <h1 className="text-3xl sm:text-5xl font-black text-slate-950">
                 HOW TO GET JOBS MASTERCLASS
               </h1>
-              <p className="text-base sm:text-xl font-bold text-[#F1B01C] max-w-2xl mx-auto">
+              <p className="text-base sm:text-xl font-bold text-[#006C6D] max-w-2xl mx-auto">
                 From Applying randomly to applying strategically.
               </p>
-              <p className="text-sm sm:text-base text-[#D3EDE9] max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed">
                 This practical career masterclass was designed to help you position yourself, find better opportunities and improve your chances of getting hired.
               </p>
 
@@ -704,9 +640,9 @@ export default function App() {
 
                 <button
                   onClick={() => setIsMasterclassModalOpen(true)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm bg-[#003B3C] hover:bg-[#002E2F] text-[#D3EDE9] border border-[#006C6D] transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-sm bg-transparent hover:border-[#006C6D] text-[#004D4E] border border-[#006C6D]/40 transition-all cursor-pointer"
                 >
-                  <Lock className="w-4 h-4 text-[#F1B01C]" />
+                  <Lock className="w-4 h-4 text-[#006C6D]" />
                   <span>Enrollment Guide & Syllabus</span>
                 </button>
               </div>
@@ -716,7 +652,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 <div className="lg:col-span-6 space-y-6">
-                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
+                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-transparent border border-[#006C6D]/30 px-3.5 py-1.5 rounded-full inline-block">
                     Official Masterclass Flier
                   </span>
 
@@ -736,8 +672,8 @@ export default function App() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
-                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-transparent border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center shrink-0">
                           <CheckCircle2 className="w-4 h-4" />
                         </div>
                         <div>
@@ -746,8 +682,8 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
-                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-transparent border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center shrink-0">
                           <CheckCircle2 className="w-4 h-4" />
                         </div>
                         <div>
@@ -756,8 +692,8 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
-                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-transparent border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center shrink-0">
                           <CheckCircle2 className="w-4 h-4" />
                         </div>
                         <div>
@@ -766,8 +702,8 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FBFA] border border-slate-200">
-                        <div className="w-8 h-8 rounded-lg bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-2.5 p-3 rounded-xl bg-transparent border border-slate-200">
+                        <div className="w-8 h-8 rounded-lg bg-transparent border border-[#006C6D]/30 text-[#006C6D] flex items-center justify-center shrink-0">
                           <CheckCircle2 className="w-4 h-4" />
                         </div>
                         <div>
@@ -792,7 +728,7 @@ export default function App() {
 
                     <button
                       onClick={() => setIsMasterclassModalOpen(true)}
-                      className="px-6 py-4 rounded-full font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer text-center"
+                      className="px-6 py-4 rounded-full font-bold text-xs bg-transparent border border-slate-300 hover:border-[#006C6D] text-slate-800 transition-colors cursor-pointer text-center"
                     >
                       View Syllabus Guide
                     </button>
@@ -810,7 +746,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xs space-y-8">
                 <div className="text-center max-w-2xl mx-auto">
-                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
+                  <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-transparent border border-[#006C6D]/30 px-3.5 py-1.5 rounded-full inline-block">
                     Inside the Masterclass
                   </span>
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mt-2">
@@ -861,11 +797,11 @@ export default function App() {
                   ].map((sess, idx) => (
                     <div
                       key={idx}
-                      className={`p-6 rounded-2xl bg-[#F8FBFA] border border-slate-200 flex items-start gap-4 ${
+                      className={`p-6 rounded-2xl bg-transparent border border-slate-200 flex items-start gap-4 ${
                         idx === 6 ? 'md:col-span-2' : ''
                       }`}
                     >
-                      <div className="w-10 h-10 rounded-xl bg-[#006C6D] text-white font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-transparent border border-[#006C6D] text-[#006C6D] font-mono font-bold text-xs flex items-center justify-center shrink-0">
                         {idx + 1}
                       </div>
                       <div>
@@ -888,8 +824,8 @@ export default function App() {
             {/* Masterclass Pricing Section */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white rounded-3xl p-8 sm:p-12 border-2 border-[#006C6D] shadow-lg text-center space-y-6">
-                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-[#D3EDE9] px-3.5 py-1.5 rounded-full">
-                  Official Programme Tuition
+                <span className="text-xs font-bold text-[#006C6D] uppercase tracking-widest bg-transparent border border-[#006C6D]/30 px-3.5 py-1.5 rounded-full inline-block">
+                  Official Program Tuition
                 </span>
 
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
@@ -906,7 +842,7 @@ export default function App() {
                 </div>
 
                 {/* Approximate International Currency Equivalents */}
-                <div className="bg-[#F8FBFA] p-5 rounded-2xl border border-slate-200 text-center max-w-xl mx-auto">
+                <div className="bg-transparent p-5 rounded-2xl border border-slate-200 text-center max-w-xl mx-auto">
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">
                     Approximate International Currency Equivalents
                   </div>
@@ -938,7 +874,7 @@ export default function App() {
 
                   {/* Mandatory currency note */}
                   <p className="text-[11px] text-slate-500 mt-3 italic leading-relaxed">
-                    “International currency equivalents are approximate and may change with exchange rates. The official programme price is ₦6,999.”
+                    “International currency equivalents are approximate and may change with exchange rates. The official program price is ₦6,999.”
                   </p>
                 </div>
 
@@ -968,17 +904,17 @@ export default function App() {
 
         {/* Bottom Banner */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-[#006C6D] text-white p-8 sm:p-14 shadow-2xl text-center space-y-6">
+          <div className="rounded-3xl bg-transparent border-2 border-[#006C6D] text-slate-900 p-8 sm:p-14 shadow-xl text-center space-y-6">
             <div className="max-w-2xl mx-auto space-y-4">
-              <span className="text-xs uppercase font-extrabold tracking-widest text-[#F1B01C]">
+              <span className="text-xs uppercase font-extrabold tracking-widest text-[#006C6D]">
                 Take Action on Your Career Today
               </span>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950">
                 Become More Employable. Position Yourself Better. Get Hired.
               </h2>
 
-              <p className="text-[#D3EDE9] text-sm sm:text-base">
+              <p className="text-slate-700 text-sm sm:text-base">
                 Join the free live webinar on 30 Nov, 2026 at 8:00 PM WAT, or secure your place in the complete 7 Live Sessions Masterclass.
               </p>
 

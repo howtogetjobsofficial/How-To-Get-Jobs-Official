@@ -64,17 +64,17 @@ export const WebinarCountdown: React.FC<CountdownProps> = ({
   }, []);
 
   return (
-    <div className={`w-full max-w-2xl mx-auto rounded-3xl bg-[#006C6D] text-white p-6 sm:p-8 shadow-xl border border-[#004D4E] ${className}`}>
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-[#004D4E]/80">
+    <div className={`w-full max-w-2xl mx-auto rounded-3xl bg-transparent text-slate-900 p-6 sm:p-8 shadow-xl border-2 border-[#006C6D] ${className}`}>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-[#006C6D]/25">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#D3EDE9] text-[#006C6D] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-full bg-transparent border border-[#006C6D]/40 text-[#006C6D] flex items-center justify-center font-bold">
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-white">
+            <h3 className="text-sm sm:text-base font-bold text-slate-950">
               Live Free Webinar Starts In:
             </h3>
-            <p className="text-xs text-[#D3EDE9]">
+            <p className="text-xs text-[#006C6D] font-medium">
               30 Nov, 2026 • 8:00 PM WAT (GMT +1)
             </p>
           </div>
@@ -86,7 +86,7 @@ export const WebinarCountdown: React.FC<CountdownProps> = ({
             <span>LIVE NOW</span>
           </div>
         ) : (
-          <div className="inline-flex items-center gap-1.5 bg-[#D3EDE9] text-[#004D4E] text-xs font-bold px-3 py-1 rounded-full">
+          <div className="inline-flex items-center gap-1.5 bg-transparent border border-[#006C6D]/40 text-[#004D4E] text-xs font-bold px-3 py-1 rounded-full">
             <span>WAT (GMT +1)</span>
           </div>
         )}
@@ -94,10 +94,10 @@ export const WebinarCountdown: React.FC<CountdownProps> = ({
 
       {timeLeft.isLive ? (
         <div className="text-center py-6">
-          <div className="text-3xl sm:text-4xl font-black text-[#F1B01C] tracking-wide mb-2 animate-bounce">
+          <div className="text-3xl sm:text-4xl font-black text-[#DC2626] tracking-wide mb-2 animate-bounce">
             🔴 LIVE NOW
           </div>
-          <p className="text-sm text-[#D3EDE9] mb-4">
+          <p className="text-sm text-slate-700 mb-4">
             The session has begun on Zoom and YouTube!
           </p>
           {onRegisterClick && (
@@ -111,38 +111,38 @@ export const WebinarCountdown: React.FC<CountdownProps> = ({
         </div>
       ) : (
         <div className="grid grid-cols-4 gap-2.5 sm:gap-4 text-center">
-          <div className="bg-[#004D4E] rounded-2xl p-3 sm:p-4 border border-[#006C6D]/80">
-            <div className="text-2xl sm:text-4xl font-black text-white font-mono">
+          <div className="bg-transparent rounded-2xl p-3 sm:p-4 border border-[#006C6D]/35">
+            <div className="text-2xl sm:text-4xl font-black text-slate-950 font-mono">
               {String(timeLeft.days).padStart(2, '0')}
             </div>
-            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#D3EDE9] mt-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">
               DAYS
             </div>
           </div>
 
-          <div className="bg-[#004D4E] rounded-2xl p-3 sm:p-4 border border-[#006C6D]/80">
-            <div className="text-2xl sm:text-4xl font-black text-white font-mono">
+          <div className="bg-transparent rounded-2xl p-3 sm:p-4 border border-[#006C6D]/35">
+            <div className="text-2xl sm:text-4xl font-black text-slate-950 font-mono">
               {String(timeLeft.hours).padStart(2, '0')}
             </div>
-            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#D3EDE9] mt-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">
               HOURS
             </div>
           </div>
 
-          <div className="bg-[#004D4E] rounded-2xl p-3 sm:p-4 border border-[#006C6D]/80">
-            <div className="text-2xl sm:text-4xl font-black text-white font-mono">
+          <div className="bg-transparent rounded-2xl p-3 sm:p-4 border border-[#006C6D]/35">
+            <div className="text-2xl sm:text-4xl font-black text-slate-950 font-mono">
               {String(timeLeft.minutes).padStart(2, '0')}
             </div>
-            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#D3EDE9] mt-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">
               MINUTES
             </div>
           </div>
 
-          <div className="bg-[#004D4E] rounded-2xl p-3 sm:p-4 border border-[#006C6D]/80">
-            <div className="text-2xl sm:text-4xl font-black text-[#F1B01C] font-mono">
+          <div className="bg-transparent rounded-2xl p-3 sm:p-4 border border-[#006C6D]/35">
+            <div className="text-2xl sm:text-4xl font-black text-[#006C6D] font-mono">
               {String(timeLeft.seconds).padStart(2, '0')}
             </div>
-            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#D3EDE9] mt-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">
               SECONDS
             </div>
           </div>

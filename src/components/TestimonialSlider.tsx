@@ -87,10 +87,10 @@ export const TestimonialSlider: React.FC = () => {
 
       {/* Main Carousel Container */}
       <div className="max-w-4xl mx-auto relative">
-        <div className="bg-[#004D4E] rounded-3xl border-2 border-[#006C6D] shadow-xl overflow-hidden text-white relative">
+        <div className="bg-transparent rounded-3xl border-2 border-[#006C6D] shadow-xl overflow-hidden text-slate-900 relative">
           {/* Decorative Corner Ambient Accent */}
           <div
-            className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#F1B01C]/15 blur-3xl pointer-events-none"
+            className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#F1B01C]/10 blur-3xl pointer-events-none"
             aria-hidden="true"
           />
 
@@ -105,30 +105,30 @@ export const TestimonialSlider: React.FC = () => {
                 className="w-full shrink-0 p-8 sm:p-12 md:p-14 flex flex-col justify-between space-y-8"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#006C6D] border border-[#D3EDE9]/30 flex items-center justify-center shrink-0">
-                    <Quote className="w-6 h-6 text-[#F1B01C]" />
+                  <div className="w-12 h-12 rounded-2xl bg-transparent border border-[#006C6D]/40 flex items-center justify-center shrink-0">
+                    <Quote className="w-6 h-6 text-[#006C6D]" />
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-[#003B3C] text-[#D3EDE9] px-3.5 py-1.5 rounded-full border border-[#006C6D]">
-                    <Briefcase className="w-3.5 h-3.5 text-[#F1B01C]" />
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-transparent text-[#004D4E] px-3.5 py-1.5 rounded-full border border-[#006C6D]/40">
+                    <Briefcase className="w-3.5 h-3.5 text-[#006C6D]" />
                     <span>{item.focusArea}</span>
                   </span>
                 </div>
 
-                <blockquote className="text-lg sm:text-2xl font-medium text-white leading-relaxed">
+                <blockquote className="text-lg sm:text-2xl font-medium text-slate-900 leading-relaxed">
                   “{item.quote}”
                 </blockquote>
 
-                <div className="pt-6 border-t border-[#006C6D]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="pt-6 border-t border-[#006C6D]/25 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-[#F1B01C] text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-md">
+                    <div className="w-14 h-14 rounded-2xl bg-transparent border-2 border-[#F1B01C] text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-xs">
                       {item.initials}
                     </div>
                     <div>
-                      <div className="text-xl font-black text-white tracking-tight">
+                      <div className="text-xl font-black text-slate-950 tracking-tight">
                         {item.name}
                       </div>
-                      <div className="text-sm font-semibold text-[#D3EDE9]">{item.role}</div>
+                      <div className="text-sm font-semibold text-[#006C6D]">{item.role}</div>
                     </div>
                   </div>
                 </div>

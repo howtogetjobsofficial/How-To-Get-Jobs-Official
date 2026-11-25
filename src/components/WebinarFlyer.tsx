@@ -17,7 +17,7 @@ export const WebinarFlyer: React.FC<WebinarFlyerProps> = ({
     <div className={`relative max-w-lg w-full mx-auto ${className}`}>
       {/* Primary: The exact supplied official flyer image */}
       {!imgError ? (
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-[#006C6D] p-3 transition-transform duration-300 hover:scale-[1.01]">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-transparent p-3 transition-transform duration-300 hover:scale-[1.01]">
           <div className="relative rounded-2xl overflow-hidden bg-white">
             <img
               src="/assets/aistudio/Applying_for_Jobs_But_not_Getting_Hired_2_603ee25f.png"
@@ -26,7 +26,7 @@ export const WebinarFlyer: React.FC<WebinarFlyerProps> = ({
               className="w-full h-auto block object-contain"
             />
             {/* Prominent updated date sticker overlay reflecting the 30 Nov, 2026 schedule */}
-            <div className="bg-[#D3EDE9] border-t-2 border-[#006C6D] p-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#004D4E]">
+            <div className="bg-transparent border-t-2 border-[#006C6D] p-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#004D4E]">
               <div className="flex items-center gap-2 font-bold text-slate-950">
                 <Calendar className="w-4 h-4 text-[#006C6D]" />
                 <span>Updated Date: <strong>30 Nov, 2026</strong></span>
@@ -50,7 +50,7 @@ export const WebinarFlyer: React.FC<WebinarFlyerProps> = ({
         </div>
       ) : (
         /* Fallback SVG representation */
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-[#006C6D] p-3 transition-transform duration-300 hover:scale-[1.01]">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-transparent p-3 transition-transform duration-300 hover:scale-[1.01]">
           <div className="relative bg-white rounded-2xl p-6 sm:p-8 overflow-hidden text-slate-900">
             <div className="relative z-10 space-y-5">
               <div className="flex items-center justify-between gap-3">
@@ -97,7 +97,7 @@ export const WebinarFlyer: React.FC<WebinarFlyerProps> = ({
                 </ul>
               </div>
 
-              <div className="bg-[#D3EDE9] rounded-2xl p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-[#004D4E]">
+              <div className="bg-transparent border border-[#006C6D]/30 rounded-2xl p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-[#004D4E]">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-slate-900 shrink-0" />
                   <div className="font-bold text-slate-950">30 Nov, 2026</div>

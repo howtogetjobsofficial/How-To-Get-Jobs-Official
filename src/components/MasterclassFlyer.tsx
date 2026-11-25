@@ -21,7 +21,7 @@ export const MasterclassFlyer: React.FC<MasterclassFlyerProps> = ({
       <div className={`relative max-w-lg w-full mx-auto ${className}`}>
         {/* Primary: The exact supplied official Masterclass flyer image */}
         {!imgError ? (
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-[#004D4E] p-3 transition-transform duration-300 hover:scale-[1.01]">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#006C6D] bg-transparent p-3 transition-transform duration-300 hover:scale-[1.01]">
             <div className="relative rounded-2xl overflow-hidden bg-white group cursor-pointer" onClick={() => setIsPreviewOpen(true)}>
               <img
                 src="/assets/aistudio/image_70face9d.png"
@@ -88,7 +88,7 @@ export const MasterclassFlyer: React.FC<MasterclassFlyerProps> = ({
             </div>
 
             <div className="space-y-4 pt-1">
-              <div className="bg-[#D3EDE9]/40 p-4 rounded-2xl border border-[#006C6D]/30 space-y-2">
+              <div className="bg-transparent p-4 rounded-2xl border border-[#006C6D]/30 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-[#004D4E] uppercase">
                   <Target className="w-4 h-4 text-[#006C6D]" />
                   <span>Inside the Masterclass</span>
@@ -125,7 +125,7 @@ export const MasterclassFlyer: React.FC<MasterclassFlyerProps> = ({
                 </div>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+              <div className="bg-transparent p-4 rounded-2xl border border-slate-200 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-[#004D4E] uppercase">
                   <Users className="w-4 h-4 text-[#006C6D]" />
                   <span>Who should Attend?</span>
